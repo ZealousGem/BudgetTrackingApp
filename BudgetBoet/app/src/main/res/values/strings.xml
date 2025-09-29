@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BudgetBoet</string>
+    <string name="register">register</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="click_to_login">click_to_login</string>
+    <string name="login">login</string>
+    <string name="click_to_register">click_to_register</string>
 </resources>
