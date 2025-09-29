@@ -10,10 +10,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class HomeScreen : AppCompatActivity() {
 
-
+    private val database by lazy { FirebaseDatabase.getInstance() }
 
     private lateinit var auth: FirebaseAuth
 
@@ -42,7 +46,7 @@ class HomeScreen : AppCompatActivity() {
 
         else
         {
-            textView.setText(user.email)
+            LoadingUserName(user.uid)
         }
 
         button.setOnClickListener {
@@ -52,5 +56,31 @@ class HomeScreen : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun LoadingUserName(uid : String)
+    {
+      val ref = database.getReference("users").child(uid)
+
+        ref.addListenerForSingleValueEvent(object  : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists())
+                {
+                    val  profile = snapshot.getValue(UserProfile::class.java)
+
+                    val disInfo = profile?.username ?: profile?.email ?: "User"
+
+                    textView.text = "Welcome, $disInfo"
+                }
+
+                else {
+                    textView.text = "Welcome, ${auth.currentUser?.email?: "User"}"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                textView.text = "Welcome, ${auth.currentUser?.email?: "User"}. (profile load failed)"
+            }
+        })
     }
 }
