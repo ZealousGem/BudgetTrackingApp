@@ -2,12 +2,16 @@ package com.example.budgetboet
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -25,16 +29,27 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var button: Button
 
+    private lateinit var toggle : ActionBarDrawerToggle
+
     // private  lateinit var user: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home_screen)
-
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
         auth = FirebaseAuth.getInstance()
         button = findViewById(R.id.logout)
         textView = findViewById(R.id.user_details)
+        val drawerLayout : DrawerLayout = findViewById(R.id.main)
+        val navView : NavigationView = findViewById(R.id.nav_view)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val user = auth.currentUser
         if(user == null){
@@ -56,13 +71,26 @@ class HomeScreen : AppCompatActivity() {
             finish()
         }
 
+       navView.setNavigationItemSelectedListener {
+
+           true
+       }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun LoadingUserName(uid : String)
     {
-      val ref = database.getReference("users").child(uid)
+        val ref = database.getReference("users").child(uid)
 
-        ref.addListenerForSingleValueEvent(object  : ValueEventListener{
+        ref.addListenerForSingleValueEvent( object  : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists())
                 {
@@ -71,6 +99,7 @@ class HomeScreen : AppCompatActivity() {
                     val disInfo = profile?.username ?: profile?.email ?: "User"
 
                     textView.text = "Welcome, $disInfo"
+
                 }
 
                 else {

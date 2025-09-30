@@ -7,4 +7,6 @@
     <string name="login">Login</string>
     <string name="click_to_register">Create an Account</string>
     <string name="username">username</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

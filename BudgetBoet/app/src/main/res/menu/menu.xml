@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/nav_expense"
+        android:icon="@drawable/baseline_explicit_24"
+        android:title="Expense List"/>
+
+    <item
+        android:id="@+id/nav_category"
+        android:icon="@drawable/outline_add_card_24"
+        android:title="Category"/>
+    <item
+        android:id="@+id/nav_goals"
+        android:icon="@drawable/outline_acute_24"
+        android:title="FinancialGoals"/>
+
+</menu>
