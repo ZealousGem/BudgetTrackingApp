@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BudgetBoet</string>
+    <string name="expense_entry">Expense Entry</string>
+    <string name="entry_name">Entry Name</string>
+    <string name="image_button">Image Button</string>
+    <string name="description">Description</string>
 </resources>
