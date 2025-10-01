@@ -16,8 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
 
-    // 🌟 CORRECTED: Using 'lazy' initialization for FirebaseAuth.
-    // This ensures 'auth' is initialized safely before it is first accessed (e.g., in onStart()).
+
     private val auth by lazy { FirebaseAuth.getInstance() }
 
     // Declared views as before
@@ -30,7 +29,7 @@ class Login : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
 
-        // 🌟 Safe to use 'auth' here because it's initialized by 'lazy'.
+
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val intent = Intent(applicationContext, HomeScreen::class.java)
@@ -42,21 +41,17 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 🌟 ESSENTIAL: Load the layout file.
+
         setContentView(R.layout.activity_login)
 
-        // ----------------------------------------------------
-        // Find Views (Note: We removed the duplicate auth = FirebaseAuth.getInstance())
-        // ----------------------------------------------------
+
         editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
         buttonLogin = findViewById(R.id.btn_login)
         progressBar = findViewById(R.id.progressBar)
         textView = findViewById(R.id.registerNow)
 
-        // ----------------------------------------------------
-        // Setup Listeners
-        // ----------------------------------------------------
+
         textView.setOnClickListener {
             // Navigate to Register screen
             val intent = Intent(applicationContext, Register::class.java)
@@ -76,7 +71,7 @@ class Login : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 🌟 CORRECTED: Using signInWithEmailAndPassword for login
+
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     progressBar.visibility = View.GONE

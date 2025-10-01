@@ -61,7 +61,7 @@ class HomeScreen : AppCompatActivity() {
 
         else
         {
-            LoadingUserName(user.uid)
+            LoadingUserName(user.uid, navView)
         }
 
         button.setOnClickListener {
@@ -86,8 +86,16 @@ class HomeScreen : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun LoadingUserName(uid : String)
+    private fun LoadingUserName(uid : String, navView: NavigationView)
     {
+
+        val headerView = navView.getHeaderView(0)
+
+        // 2. Find the TextViews inside the header
+        val unameTextView: TextView = headerView.findViewById(R.id.Uname)
+        val uemailTextView: TextView = headerView.findViewById(R.id.Uemail)
+
+        uemailTextView.text = auth.currentUser?.email ?: "Email does not exist"
         val ref = database.getReference("users").child(uid)
 
         ref.addListenerForSingleValueEvent( object  : ValueEventListener{
@@ -98,12 +106,15 @@ class HomeScreen : AppCompatActivity() {
 
                     val disInfo = profile?.username ?: profile?.email ?: "User"
 
+                    unameTextView.text = disInfo
+
                     textView.text = "Welcome, $disInfo"
 
                 }
 
                 else {
                     textView.text = "Welcome, ${auth.currentUser?.email?: "User"}"
+                    unameTextView.text = "Welcome, ${auth.currentUser?.email?: "User"}"
                 }
             }
 
