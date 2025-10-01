@@ -4,4 +4,8 @@
     <string name="entry_name">Entry Name</string>
     <string name="image_button">Image Button</string>
     <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+
 </resources>
