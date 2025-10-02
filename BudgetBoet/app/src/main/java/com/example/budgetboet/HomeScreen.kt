@@ -25,6 +25,7 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+
     private lateinit var textView: TextView
 
     private lateinit var button: Button
