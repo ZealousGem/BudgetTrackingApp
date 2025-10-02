@@ -1,9 +1,10 @@
-    <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
     android:id="@+id/expense_entry">
 
     <ScrollView
@@ -35,7 +36,8 @@
                 android:inputType="text"
                 android:text="@string/expense_entry"
                 android:textAlignment="center"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textColor="@color/black" />
 
             <LinearLayout
                 android:id="@+id/horizLayout"
@@ -64,7 +66,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         app:boxStrokeColor="@color/teal"
-                        app:boxBackgroundColor="@color/black">
+                        app:boxBackgroundColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txtName"
@@ -74,7 +76,8 @@
                             android:layout_margin="10dp"
                             android:ems="10"
                             android:hint="@string/entry_name"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:textColor="@color/black" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,10 +115,30 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:boxStrokeColor="@color/teal"
+                app:boxBackgroundColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="@string/amount"
+                    android:inputType="text"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
                 app:strokeWidth="2dp"
                 app:boxStrokeColor="@color/teal"
-                app:boxBackgroundColor="@color/black">
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtDescription"
@@ -128,7 +151,10 @@
                     android:ems="10"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
+                    android:textColor="@color/black"
                     android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:scrollbarSize="10dp"
                     android:scrollHorizontally="false"
                     android:singleLine="false" />
 
@@ -143,7 +169,7 @@
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
                 app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/black">
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,6 +188,7 @@
                         android:text="@string/date"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
+                        android:textColor="@color/black"
                         tools:ignore="RtlCompat" />
 
                     <DatePicker
@@ -170,7 +197,8 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
                         android:calendarViewShown="false"
-                        android:datePickerMode="spinner" />
+                        android:datePickerMode="spinner"
+                        android:backgroundTint="@color/white" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -183,7 +211,7 @@
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
                 app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/black">
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -203,6 +231,7 @@
                         android:text="@string/start_time"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
+                        android:textColor="@color/black"
                         tools:ignore="RtlCompat" />
 
                     <TimePicker
@@ -210,7 +239,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"
+                        android:backgroundTint="@color/white" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -224,7 +254,7 @@
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
                 app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/black">
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -244,6 +274,7 @@
                         android:text="@string/end_time"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
+                        android:textColor="@color/black"
                         tools:ignore="RtlCompat" />
 
                     <TimePicker
@@ -251,10 +282,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/create_entry"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black" />
 
         </LinearLayout>
     </ScrollView>
