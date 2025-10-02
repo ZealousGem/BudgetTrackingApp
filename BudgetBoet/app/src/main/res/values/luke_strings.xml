@@ -10,4 +10,6 @@
     <string name="create_entry">Create Entry</string>
     <string name="amount">Amount</string>
 
+    <string name="expense_list">Expense List</string>"
+
 </resources>

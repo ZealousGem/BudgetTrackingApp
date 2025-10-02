@@ -7,6 +7,7 @@
     android:layout_gravity="center"
     android:id="@+id/expense_entry">
 
+    <!-- ScrollView to contain the form elements and allow scrolling -->
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -15,16 +16,18 @@
         android:id="@+id/scrollView"
         tools:ignore="MissingConstraints">
 
+        <!-- Main vertical LinearLayout to arrange all form elements -->
         <LinearLayout
             android:id="@+id/vertLayout"
             android:layout_width="350dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <!-- Title TextView for the screen -->
             <TextView
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
@@ -39,6 +42,7 @@
                 android:textSize="30sp"
                 android:textColor="@color/black" />
 
+            <!-- Horizontal Layout for Entry Name, Category, and Image -->
             <LinearLayout
                 android:id="@+id/horizLayout"
                 android:layout_width="match_parent"
@@ -54,6 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <!-- Vertical Layout for Name and Category inputs -->
                 <LinearLayout
                     android:id="@+id/vertLayout2"
                     android:layout_width="100dp"
@@ -61,6 +66,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <!-- Entry Name Input -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -81,11 +87,12 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Category Dropdown Spinner -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:boxBackgroundColor="@color/black"
+                        app:boxBackgroundColor="@color/white"
                         app:boxStrokeColor="@color/teal">
 
                         <Spinner
@@ -97,9 +104,9 @@
                             android:entries="@android:array/emailAddressTypes" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
                 </LinearLayout>
 
+                <!-- Image Button for attaching a photo -->
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="100dp"
@@ -110,12 +117,12 @@
                     android:contentDescription="@string/image_button"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-
             </LinearLayout>
 
+            <!-- Amount Input Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:boxStrokeColor="@color/teal"
                 app:boxBackgroundColor="@color/white">
@@ -123,7 +130,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtAmount"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:ems="10"
@@ -133,6 +140,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Description Input Field (Multiline) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -160,6 +168,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Date Picker Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,6 +211,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Start Time Picker Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -245,6 +255,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- End Time Picker Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -282,11 +293,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:timePickerMode="spinner"/>
+                        android:timePickerMode="spinner" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Submit Button -->
             <Button
                 android:id="@+id/button"
                 android:layout_width="200dp"
