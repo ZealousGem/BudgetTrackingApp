@@ -10,7 +10,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/baseline_account_circle_24"/>
     
     <TextView
         android:layout_width="match_parent"

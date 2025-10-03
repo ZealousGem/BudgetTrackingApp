@@ -22,4 +22,9 @@
         android:icon="@drawable/outline_acute_24"
         android:title="FinancialGoals"/>
 
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/outline_arrow_left_alt_24"
+        android:title="Log Out"/>
+
 </menu>
