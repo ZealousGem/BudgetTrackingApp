@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.BudgetBoet" parent="Base.Theme.BudgetBoet" />
+    <attr name="colorOnBackground" />
 </resources>

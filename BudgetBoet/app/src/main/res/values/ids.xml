@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="inputTargetAmount" type="id">inputTargetAmount</item>
+    <item name="inputTargetAmount" type="id" />
 </resources>

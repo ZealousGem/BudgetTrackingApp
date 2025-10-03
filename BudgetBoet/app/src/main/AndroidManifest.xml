@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetBoet">
 
+
         <activity
             android:name=".Register"
             android:exported="false" />
