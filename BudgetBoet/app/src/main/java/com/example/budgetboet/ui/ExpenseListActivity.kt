@@ -32,6 +32,8 @@ class ExpenseListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_list)
 
+
+        /// navigation stuff
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
@@ -82,7 +84,8 @@ class ExpenseListActivity : AppCompatActivity() {
 
             drawerLayout.closeDrawer(navView)
             true
-        }
+        }  ///  end of navigation stuff
+
         // this code was causing it to crash
 //        val nameInput = findViewById<EditText>(R.id.txtEntryName)
 //        val amountInput = findViewById<EditText>(R.id.txtAmount)
@@ -109,7 +112,7 @@ class ExpenseListActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { ///  navigation stuff, do not touch or i will kill you
 
         if (toggle.onOptionsItemSelected(item)){
             return true

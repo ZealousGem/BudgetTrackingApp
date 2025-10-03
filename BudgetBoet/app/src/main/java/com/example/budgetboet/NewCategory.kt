@@ -33,6 +33,7 @@ class NewCategory : AppCompatActivity() {
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        /// navigation stuff
         toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -79,7 +80,7 @@ class NewCategory : AppCompatActivity() {
 
             drawerLayout.closeDrawer(navView)
             true
-        }
+        }  ///  end of navigation stuff
 
         val catTypeSpinner: Spinner = findViewById(R.id.CatType)
         val catNameEditText: EditText = findViewById(R.id.CatName)
@@ -132,7 +133,7 @@ class NewCategory : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { ///  navigation stuff, do not touch or i will kill you
 
         if (toggle.onOptionsItemSelected(item)){
             return true

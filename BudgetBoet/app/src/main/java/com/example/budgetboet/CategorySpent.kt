@@ -32,6 +32,8 @@ class CategorySpent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.category_spent)
 
+
+        /// navigation stuff
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
@@ -85,6 +87,8 @@ class CategorySpent : AppCompatActivity() {
             drawerLayout.closeDrawer(navView)
             true
         }
+
+        ///  end of navigation stuff
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
@@ -181,7 +185,7 @@ class CategorySpent : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { ///  navigation stuff, do not touch or i will kill you
 
         if (toggle.onOptionsItemSelected(item)){
             return true

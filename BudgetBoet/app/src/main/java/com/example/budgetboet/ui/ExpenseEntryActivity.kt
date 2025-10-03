@@ -32,6 +32,8 @@ class ExpenseEntryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_entry)
 
+
+        /// navigation stuff
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -93,7 +95,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
             drawerLayout.closeDrawer(navView)
             true
-        }
+        } ///  end of navigation stuff
         saveButton.setOnClickListener {
             val name = nameInput.text.toString()
             val amount = amountInput.text.toString().toDoubleOrNull() ?: 0.0
@@ -105,7 +107,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
 //            val endTime = endTimeDropdown.selectedItem.toString()
         }
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { ///  navigation stuff, do not touch or i will kill you
 
         if (toggle.onOptionsItemSelected(item)){
             return true
