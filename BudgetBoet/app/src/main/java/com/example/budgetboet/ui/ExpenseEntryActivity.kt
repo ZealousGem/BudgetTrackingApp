@@ -1,6 +1,7 @@
 package com.example.budgetboet.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -11,12 +12,18 @@ import android.widget.TimePicker
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.budgetboet.Goals
+import com.example.budgetboet.HomeScreen
 import com.example.budgetboet.R
+import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class ExpenseEntryActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var toggle : ActionBarDrawerToggle
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +48,31 @@ class ExpenseEntryActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        if(user != null){
+            // ... login redirect ...
+            UserUtils.loadUserNameAndEmail(user.uid, navView)
+        }
+
+        navView.setNavigationItemSelectedListener {
+
+            when(it.itemId)
+            {
+              R.id.nav_home ->{ val intent = Intent(applicationContext, HomeScreen ::class.java)
+                  startActivity(intent)}
+
+                R.id.nav_expense ->{ val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
+                    startActivity(intent)}
+
+
+
+
+
+            }
+            true
+        }
         saveButton.setOnClickListener {
             val name = nameInput.text.toString()
             val amount = amountInput.text.toString().toDoubleOrNull() ?: 0.0

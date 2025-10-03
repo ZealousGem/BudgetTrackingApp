@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -38,6 +39,13 @@ class CategorySpent : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        if(user != null){
+            // ... login redirect ...
+            UserUtils.loadUserNameAndEmail(user.uid, navView)
+        }
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference

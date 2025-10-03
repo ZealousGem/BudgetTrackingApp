@@ -102,36 +102,69 @@ class HomeScreen : AppCompatActivity() {
             val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
             startActivity(intent)
 
+
         }
 
         ViewExpenseEntryButton.setOnClickListener {
             val intent = Intent(applicationContext, ExpenseListActivity ::class.java)
             startActivity(intent)
+
         }
 
 
         CreateCategoryButton.setOnClickListener {
             val intent = Intent(applicationContext, NewCategory ::class.java)
             startActivity(intent)
+
         }
 
         ViewCategoryButton.setOnClickListener {
             val intent = Intent(applicationContext, CategorySpent ::class.java)
             startActivity(intent)
+
         }
 
 
         CreateGoalsButton.setOnClickListener {
             val intent = Intent(applicationContext, Goals ::class.java)
             startActivity(intent)
+
         }
 
         ViewGoalsButton.setOnClickListener {
-
+                   /// no view goals screen found
         }
 
        navView.setNavigationItemSelectedListener {
 
+           when(it.itemId)
+           {
+               R.id.nav_home ->{ val intent = Intent(applicationContext, HomeScreen ::class.java)
+                   startActivity(intent)}
+
+               R.id.nav_expense ->{ val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
+                   startActivity(intent)}
+
+               R.id.nav_expense_view ->{ val intent = Intent(applicationContext,
+                   ExpenseListActivity ::class.java)
+                   startActivity(intent)}
+
+               R.id.nav_category ->{ val intent = Intent(applicationContext, NewCategory ::class.java)
+                   startActivity(intent)}
+
+               R.id.nav_category_view ->{ val intent = Intent(applicationContext, CategorySpent ::class.java)
+                   startActivity(intent)}
+
+               R.id.nav_logout ->{
+                   FirebaseAuth.getInstance().signOut()
+                   val intent = Intent(applicationContext, Login::class.java)
+                   startActivity(intent)
+                   finish()}
+
+
+           }
+
+           drawerLayout.closeDrawer(navView)
            true
        }
 

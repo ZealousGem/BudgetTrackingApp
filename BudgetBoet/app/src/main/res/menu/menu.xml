@@ -8,23 +8,64 @@
         android:icon="@drawable/baseline_home_24"
         android:title="Home"/>
 
-    <item
-        android:id="@+id/nav_expense"
-        android:icon="@drawable/baseline_explicit_24"
-        android:title="Expense List"/>
+    <item android:title="Expenses">
 
-    <item
-        android:id="@+id/nav_category"
-        android:icon="@drawable/outline_add_card_24"
-        android:title="Category"/>
-    <item
-        android:id="@+id/nav_goals"
-        android:icon="@drawable/outline_acute_24"
-        android:title="FinancialGoals"/>
+        <menu>
 
-    <item
-        android:id="@+id/nav_logout"
-        android:icon="@drawable/outline_arrow_left_alt_24"
-        android:title="Log Out"/>
+            <item
+                android:id="@+id/nav_expense"
+                android:icon="@drawable/baseline_explicit_24"
+                android:title="Create Expense Entry"/>
+
+            <item
+                android:id="@+id/nav_expense_view"
+                android:icon="@drawable/baseline_explicit_24"
+                android:title="View Expense Entries"/>
+
+        </menu>
+    </item>
+
+    <item android:title="Categories">
+
+    <menu>
+
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/outline_add_card_24"
+            android:title="Create Category"/>
+
+        <item
+            android:id="@+id/nav_category_view"
+            android:icon="@drawable/outline_add_card_24"
+            android:title="View Category"/>
+
+    </menu>
+    </item>
+
+    <item android:title="FinancialGoals">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_goals"
+                android:icon="@drawable/outline_acute_24"
+                android:title="Create Goals"/>
+
+        </menu>
+    </item>
+
+    <item android:title="Extra">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/outline_arrow_left_alt_24"
+                android:title="Log Out"/>
+
+        </menu>
+    </item>
+
+
 
 </menu>

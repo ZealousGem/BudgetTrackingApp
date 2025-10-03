@@ -10,12 +10,14 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class NewCategory : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var toggle : ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,13 @@ class NewCategory : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        if(user != null){
+            // ... login redirect ...
+            UserUtils.loadUserNameAndEmail(user.uid, navView)
+        }
 
         val catTypeSpinner: Spinner = findViewById(R.id.CatType)
         val catNameEditText: EditText = findViewById(R.id.CatName)

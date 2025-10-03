@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetboet.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.example.budgetboet.utils.UserUtils
 
 class ExpenseListActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var toggle : ActionBarDrawerToggle
     @SuppressLint("WrongViewCast")
@@ -28,13 +32,16 @@ class ExpenseListActivity : AppCompatActivity() {
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+        auth = FirebaseAuth.getInstance()
         toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
+        val user = auth.currentUser
+        if(user != null){
+            // ... login redirect ...
+            UserUtils.loadUserNameAndEmail(user.uid, navView)
+        }
         // this code was causing it to crash
 //        val nameInput = findViewById<EditText>(R.id.txtEntryName)
 //        val amountInput = findViewById<EditText>(R.id.txtAmount)
