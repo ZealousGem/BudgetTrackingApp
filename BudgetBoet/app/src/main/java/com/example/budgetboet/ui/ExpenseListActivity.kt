@@ -11,6 +11,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.budgetboet.CategorySpent
+import com.example.budgetboet.Goals
+import com.example.budgetboet.HomeScreen
+import com.example.budgetboet.Login
+import com.example.budgetboet.NewCategory
 import com.example.budgetboet.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -41,6 +46,42 @@ class ExpenseListActivity : AppCompatActivity() {
         if(user != null){
             // ... login redirect ...
             UserUtils.loadUserNameAndEmail(user.uid, navView)
+        }
+
+        navView.setNavigationItemSelectedListener {
+
+            when(it.itemId)
+            {
+                R.id.nav_home ->{ val intent = Intent(applicationContext, HomeScreen ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_expense ->{ val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_expense_view ->{ val intent = Intent(applicationContext,
+                    ExpenseListActivity ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_category ->{ val intent = Intent(applicationContext, NewCategory ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_category_view ->{ val intent = Intent(applicationContext, CategorySpent ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_goals ->{ val intent = Intent(applicationContext, Goals ::class.java)
+                    startActivity(intent)}
+
+                R.id.nav_logout ->{
+                    FirebaseAuth.getInstance().signOut()
+                    val intent = Intent(applicationContext, Login::class.java)
+                    startActivity(intent)
+                    finish()}
+
+
+            }
+
+            drawerLayout.closeDrawer(navView)
+            true
         }
         // this code was causing it to crash
 //        val nameInput = findViewById<EditText>(R.id.txtEntryName)
