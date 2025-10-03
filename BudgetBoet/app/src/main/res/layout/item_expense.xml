@@ -17,7 +17,7 @@
 
         <!-- Expense image -->
         <ImageView
-            android:id="@+id/ivItemImage"
+            android:id="@+id/imgItemImage"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="12dp"
@@ -34,26 +34,50 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvItemName"
+                android:id="@+id/txtItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Expense Name"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/tvItemSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Category | Date"
-                android:textSize="14sp"
-                android:textColor="@color/gray_dark"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtItemCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtSeperator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text=" | "
+                    android:textColor="@color/gray_dark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtItemDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Date"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <!-- Amount -->
         <TextView
-            android:id="@+id/tvItemAmount"
+            android:id="@+id/txtItemAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R 0.00"
