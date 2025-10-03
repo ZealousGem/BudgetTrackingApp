@@ -8,7 +8,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetboet.R
 
-class ExpenseEntryActivity : AppCompatActivity() {
+class ExpenseListActivity : AppCompatActivity() {
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
