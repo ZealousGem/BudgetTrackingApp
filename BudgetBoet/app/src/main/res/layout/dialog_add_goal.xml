@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- This EditText MUST have the id @+id/inputGoalName -->
+    <EditText
+        android:id="@+id/inputGoalName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Goal Name (e.g., New Laptop)"
+        android:inputType="textCapWords"/>
+
+    <!-- This EditText MUST have the id @+id/inputTargetAmount -->
+    <EditText
+        android:id="@+id/inputTargetAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Target Amount (e.g., 1500)"
+        android:inputType="number"/>
+
+</LinearLayout>
