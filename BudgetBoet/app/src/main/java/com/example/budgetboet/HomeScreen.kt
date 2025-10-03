@@ -116,7 +116,8 @@ class HomeScreen : AppCompatActivity() {
         }
 
         ViewCategoryButton.setOnClickListener {
-
+            val intent = Intent(applicationContext, CategorySpent ::class.java)
+            startActivity(intent)
         }
 
 

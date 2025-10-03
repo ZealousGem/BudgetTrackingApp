@@ -1,10 +1,14 @@
 package com.example.budgetboet
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.DecimalFormat
@@ -15,6 +19,7 @@ data class Expense(val userId: String = "", val categoryId: String = "", val amo
 
 class CategorySpent : AppCompatActivity() {
 
+    private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var tableLayout: TableLayout
@@ -22,6 +27,17 @@ class CategorySpent : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.category_spent)
+
+        val drawerLayout : DrawerLayout = findViewById(R.id.main)
+        val navView : NavigationView = findViewById(R.id.nav_view)
+
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
@@ -116,5 +132,13 @@ class CategorySpent : AppCompatActivity() {
             tableRow.addView(totalView)
             tableLayout.addView(tableRow)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

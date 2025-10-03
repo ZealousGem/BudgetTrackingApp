@@ -32,6 +32,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
         val startTimeDropdown = findViewById<TimePicker>(R.id.startTimePicker)
         val endTimeDropdown = findViewById<TimePicker>(R.id.endTimePicker)
         val saveButton = findViewById<Button>(R.id.btnSaveEntry)
+
         val drawerLayout : DrawerLayout = findViewById(R.id.expense_entry)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
@@ -45,6 +46,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
             val amount = amountInput.text.toString().toDoubleOrNull() ?: 0.0
             val category = categoryDropdown.selectedItem.toString()
 
+            // this code was causing it to crash
 //            val date = dateDropdown.selectedItem.toString()
 //            val startTime = startTimeDropdown.selectedItem.toString()
 //            val endTime = endTimeDropdown.selectedItem.toString()

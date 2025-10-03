@@ -1,20 +1,37 @@
 package com.example.budgetboet
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class NewCategory : AppCompatActivity() {
 
+    private lateinit var toggle : ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_category)
+
+        val drawerLayout : DrawerLayout = findViewById(R.id.main)
+        val navView : NavigationView = findViewById(R.id.nav_view)
+
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val catTypeSpinner: Spinner = findViewById(R.id.CatType)
         val catNameEditText: EditText = findViewById(R.id.CatName)
@@ -65,5 +82,13 @@ class NewCategory : AppCompatActivity() {
                     }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

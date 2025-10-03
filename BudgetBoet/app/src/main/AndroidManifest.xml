@@ -29,6 +29,9 @@
             android:name=".NewCategory"
             android:exported="false" />
         <activity
+            android:name=".CategorySpent"
+            android:exported="false" />
+        <activity
             android:name=".Goals"
             android:exported="false" />
         <activity
