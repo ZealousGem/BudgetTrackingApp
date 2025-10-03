@@ -20,6 +20,18 @@
             android:name=".Login"
             android:exported="false" />
         <activity
+            android:name=".ui.ExpenseEntryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ExpenseListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewCategory"
+            android:exported="false" />
+        <activity
+            android:name=".Goals"
+            android:exported="false" />
+        <activity
             android:name=".HomeScreen"
             android:exported="true">
             <intent-filter>

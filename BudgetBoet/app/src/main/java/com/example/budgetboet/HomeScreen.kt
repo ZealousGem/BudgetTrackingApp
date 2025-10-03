@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.budgetboet.ui.ExpenseEntryActivity
+import com.example.budgetboet.ui.ExpenseListActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -30,6 +32,20 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var button: Button
 
+    private lateinit var CreateExpenseEntryButton : Button
+
+    private lateinit var ViewExpenseEntryButton : Button
+
+
+    private lateinit var CreateCategoryButton : Button
+
+    private lateinit var ViewCategoryButton : Button
+
+
+    private lateinit var CreateGoalsButton : Button
+
+    private lateinit var ViewGoalsButton : Button
+
     private lateinit var toggle : ActionBarDrawerToggle
 
     // private  lateinit var user: FirebaseUser
@@ -43,6 +59,16 @@ class HomeScreen : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         button = findViewById(R.id.logout)
         textView = findViewById(R.id.user_details)
+
+        CreateExpenseEntryButton = findViewById(R.id.Create_Entry)
+        ViewExpenseEntryButton = findViewById(R.id.View_Entry)
+
+        CreateCategoryButton = findViewById(R.id.Create_Category)
+        ViewCategoryButton = findViewById(R.id.View_Category)
+
+        CreateGoalsButton = findViewById(R.id.Create_Goals)
+        ViewGoalsButton = findViewById(R.id.View_Goals)
+
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
@@ -70,6 +96,37 @@ class HomeScreen : AppCompatActivity() {
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)
             finish()
+        }
+
+        CreateExpenseEntryButton.setOnClickListener {
+            val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
+            startActivity(intent)
+
+        }
+
+        ViewExpenseEntryButton.setOnClickListener {
+            val intent = Intent(applicationContext, ExpenseListActivity ::class.java)
+            startActivity(intent)
+        }
+
+
+        CreateCategoryButton.setOnClickListener {
+            val intent = Intent(applicationContext, NewCategory ::class.java)
+            startActivity(intent)
+        }
+
+        ViewCategoryButton.setOnClickListener {
+
+        }
+
+
+        CreateGoalsButton.setOnClickListener {
+            val intent = Intent(applicationContext, Goals ::class.java)
+            startActivity(intent)
+        }
+
+        ViewGoalsButton.setOnClickListener {
+
         }
 
        navView.setNavigationItemSelectedListener {
