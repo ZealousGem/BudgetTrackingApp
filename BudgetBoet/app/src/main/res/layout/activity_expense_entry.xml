@@ -33,9 +33,13 @@
 
         <LinearLayout
             android:id="@+id/vertLayout"
-            android:layout_width="match_parent"          android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="25dp"                   android:paddingEnd="25dp">                    <TextView
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
+
+            <TextView
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -47,7 +51,7 @@
             android:text="@string/expense_entry"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textColor="@color/black" />
+            android:textColor="@color/purple" />
 
             <LinearLayout
                 android:id="@+id/horizLayout"
@@ -71,8 +75,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:boxStrokeColor="@color/teal"
-                        app:boxBackgroundColor="@color/white">
+                        app:boxStrokeColor="@color/purple"
+                        app:boxBackgroundColor="@color/gray_dark">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txtEntryName"
@@ -83,7 +87,7 @@
                             android:ems="10"
                             android:hint="@string/entry_name"
                             android:inputType="text"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:boxStrokeColor="@color/teal"
-                app:boxBackgroundColor="@color/white">
+                app:boxStrokeColor="@color/purple"
+                app:boxBackgroundColor="@color/gray_dark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtAmount"
@@ -133,7 +137,7 @@
                     android:ems="10"
                     android:hint="@string/amount"
                     android:inputType="text"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,8 +145,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 app:strokeWidth="2dp"
-                app:boxStrokeColor="@color/teal"
-                app:boxBackgroundColor="@color/white">
+                app:boxStrokeColor="@color/purple"
+                app:boxBackgroundColor="@color/gray_dark">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtDescription"
@@ -155,7 +159,7 @@
                     android:ems="10"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="false"
                     android:scrollbarSize="10dp"
@@ -172,8 +176,8 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
-                app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/white">
+                app:strokeColor="@color/purple"
+                app:cardBackgroundColor="@color/gray_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,7 +196,7 @@
                         android:text="@string/date"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/purple"
                         tools:ignore="RtlCompat" />
 
                     <DatePicker
@@ -214,8 +218,8 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
-                app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/white">
+                app:strokeColor="@color/purple"
+                app:cardBackgroundColor="@color/gray_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -235,7 +239,7 @@
                         android:text="@string/start_time"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/purple"
                         tools:ignore="RtlCompat" />
 
                     <TimePicker
@@ -257,8 +261,8 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:strokeWidth="2dp"
-                app:strokeColor="@color/teal"
-                app:cardBackgroundColor="@color/white">
+                app:strokeColor="@color/purple"
+                app:cardBackgroundColor="@color/gray_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,7 +282,7 @@
                         android:text="@string/end_time"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/purple"
                         tools:ignore="RtlCompat" />
 
                     <TimePicker
@@ -298,8 +302,13 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/create_entry"
-                android:textColor="@color/white"
+                android:textColor="@color/purple"
+                android:textAllCaps="true"
                 android:backgroundTint="@color/black" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
         </LinearLayout>
     </ScrollView>
