@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import android.widget.Toast
 
+
 class ExpenseEntryActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth

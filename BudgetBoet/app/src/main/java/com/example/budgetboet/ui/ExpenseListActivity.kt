@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetboet.CategorySpent
 import com.example.budgetboet.Goals
@@ -17,103 +15,132 @@ import com.example.budgetboet.HomeScreen
 import com.example.budgetboet.Login
 import com.example.budgetboet.NewCategory
 import com.example.budgetboet.R
+import com.example.budgetboet.adapter.ExpenseAdapter
+import com.example.budgetboet.model.Expense
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.example.budgetboet.utils.UserUtils
 
 class ExpenseListActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
     private lateinit var toggle : ActionBarDrawerToggle
+
+    private lateinit var database: DatabaseReference
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var expenseList: MutableList<Expense>
+    private lateinit var adapter: ExpenseAdapter
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_list)
 
+        // Initialize Firebase Auth and Database
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
 
-        /// navigation stuff
+        // Initialize RecyclerView components
+        recyclerView = findViewById(R.id.rvExpenses)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        expenseList = mutableListOf()
+        adapter = ExpenseAdapter(expenseList)
+        recyclerView.adapter = adapter
+
+        // Load data from Firebase
+        loadExpenses()
+
+        // --- Navigation Setup ---
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        auth = FirebaseAuth.getInstance()
+
         toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val user = auth.currentUser
         if(user != null){
-            // ... login redirect ...
             UserUtils.loadUserNameAndEmail(user.uid, navView)
         }
 
         navView.setNavigationItemSelectedListener {
-
             when(it.itemId)
             {
-                R.id.nav_home ->{ val intent = Intent(applicationContext, HomeScreen ::class.java)
-                    startActivity(intent)}
-
-                R.id.nav_expense ->{ val intent = Intent(applicationContext, ExpenseEntryActivity ::class.java)
-                    startActivity(intent)}
-
-                R.id.nav_expense_view ->{ val intent = Intent(applicationContext,
-                    ExpenseListActivity ::class.java)
-                    startActivity(intent)}
-
-                R.id.nav_category ->{ val intent = Intent(applicationContext, NewCategory ::class.java)
-                    startActivity(intent)}
-
-                R.id.nav_category_view ->{ val intent = Intent(applicationContext, CategorySpent ::class.java)
-                    startActivity(intent)}
-
-                R.id.nav_goals ->{ val intent = Intent(applicationContext, Goals ::class.java)
-                    startActivity(intent)}
-
+                R.id.nav_home ->{
+                    startActivity(Intent(applicationContext, HomeScreen ::class.java))
+                }
+                R.id.nav_expense ->{
+                    startActivity(Intent(applicationContext, ExpenseEntryActivity ::class.java))
+                }
+                R.id.nav_expense_view ->{
+                    startActivity(Intent(applicationContext, ExpenseListActivity ::class.java))
+                }
+                R.id.nav_category ->{
+                    startActivity(Intent(applicationContext, NewCategory ::class.java))
+                }
+                R.id.nav_category_view ->{
+                    startActivity(Intent(applicationContext, CategorySpent ::class.java))
+                }
+                R.id.nav_goals ->{
+                    startActivity(Intent(applicationContext, Goals ::class.java))
+                }
                 R.id.nav_logout ->{
                     FirebaseAuth.getInstance().signOut()
-                    val intent = Intent(applicationContext, Login::class.java)
-                    startActivity(intent)
-                    finish()}
-
-
+                    startActivity(Intent(applicationContext, Login::class.java))
+                    finish()
+                }
             }
-
             drawerLayout.closeDrawer(navView)
             true
-        }  ///  end of navigation stuff
+        }
+        // --- End Navigation Setup ---
 
-        // this code was causing it to crash
-//        val nameInput = findViewById<EditText>(R.id.txtEntryName)
-//        val amountInput = findViewById<EditText>(R.id.txtAmount)
-//        val categoryDropdown = findViewById<Spinner>(R.id.categoryDropDown)
-//        val dateDropdown = findViewById<Spinner>(R.id.datePicker)
-//        val startTimeDropdown = findViewById<Spinner>(R.id.txtStartTime)
-//        val endTimeDropdown = findViewById<Spinner>(R.id.txtEndTime)
-//        val saveButton = findViewById<Button>(R.id.btnSaveEntry)
-//
-//        saveButton.setOnClickListener {
-//            val name = nameInput.text.toString()
-//            val amount = amountInput.text.toString().toDoubleOrNull() ?: 0.0
-//            val category = categoryDropdown.selectedItem.toString()
-//            val date = dateDropdown.selectedItem.toString()
-//            val startTime = startTimeDropdown.selectedItem.toString()
-//            val endTime = endTimeDropdown.selectedItem.toString()
-//        }
-
-        val recyclerView = findViewById<RecyclerView>(R.id.rvExpenses)
         val fab = findViewById<FloatingActionButton>(R.id.fabNewExpense)
-
         fab.setOnClickListener {
             val intent = Intent(this, ExpenseEntryActivity::class.java)
             startActivity(intent)
         }
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean { ///  navigation stuff, do not touch or i will kill you
 
+    private fun loadExpenses() {
+        val userId = auth.currentUser?.uid ?: return
+
+        // This references the path: /expenses/{user_id}/
+        val expensesRef = database.child("expenses").child(userId)
+
+        expensesRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Clear the list to reflect the current state of the database
+                expenseList.clear()
+
+                // Iterate through all expense entries for the user
+                for (expenseSnapshot in snapshot.children) {
+                    val expense = expenseSnapshot.getValue(Expense::class.java)
+                    if (expense != null) {
+                        expenseList.add(expense)
+                    }
+                }
+
+                // Notify the adapter that the data set has changed
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){
             return true
         }

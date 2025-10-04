@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.firebase.database)
     implementation(libs.androidx.cardview)
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

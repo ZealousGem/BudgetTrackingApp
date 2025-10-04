@@ -11,5 +11,5 @@ data class Expense(
     val date: String = "",
     val startTime: String = "",
     val endTime: String = "",
-    val image: Int = 0
+    val image: String = ""
 )
