@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation(libs.androidx.recyclerview)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -79,6 +79,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
         // --- Initialize Firebase Storage ---
         database = FirebaseDatabase.getInstance().reference
+        val bucketUrl = "gs://budgetboet-receipts-free"
         storageRef = FirebaseStorage.getInstance().reference
 
         /// navigation stuff
