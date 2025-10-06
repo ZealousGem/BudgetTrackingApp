@@ -161,7 +161,8 @@ class CategorySpent : AppCompatActivity() {
                                     val expenseDate = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(expense.date)
                                     if (filterStartDate == null || expenseDate.after(filterStartDate)) {
                                         val currentTotal = categoryTotals[expense.category] ?: 0.0
-                                        categoryTotals[expense.category] = currentTotal + expense.amount
+                                        val expenseAmountAsDouble = expense.amount.toString().toDoubleOrNull() ?: 0.0
+                                        categoryTotals[expense.category] = currentTotal + expenseAmountAsDouble
                                     }
                                 } catch (e: Exception) {
                                     // Date parsing error, maybe log it
