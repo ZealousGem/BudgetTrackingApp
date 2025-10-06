@@ -1,21 +1,29 @@
-
 package com.example.budgetboet
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
-class GoalAdapter(private val goals: MutableList<Goal>) :
-    RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
+class GoalAdapter(
+    private val goals: MutableList<Goal>,
+    private val dbRef: DatabaseReference
+) : RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
 
     class GoalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val goalName: TextView = itemView.findViewById(R.id.goalName)
         val goalProgressBar: ProgressBar = itemView.findViewById(R.id.goalProgressBar)
         val deleteButton: Button = itemView.findViewById(R.id.deleteGoalButton)
+        val updateButton: Button = itemView.findViewById(R.id.button3)
+        val amountEditText: EditText = itemView.findViewById(R.id.editTextText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
@@ -31,12 +39,34 @@ class GoalAdapter(private val goals: MutableList<Goal>) :
         holder.goalProgressBar.progress = goal.savedAmount
 
         holder.deleteButton.setOnClickListener {
-            goals.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, goals.size)
+            dbRef.child(goal.id).removeValue()
+        }
+
+        holder.updateButton.setOnClickListener {
+            val amountText = holder.amountEditText.text.toString()
+            if (amountText.isNotEmpty()) {
+                val amount = amountText.toInt()
+                
+                // Perform an "optimistic" UI update for immediate feedback
+                val newSavedAmount = goal.savedAmount + amount
+                holder.goalProgressBar.progress = newSavedAmount
+                
+                // Update the value in Firebase in the background
+                val userId = FirebaseAuth.getInstance().currentUser?.uid
+                if (userId != null) {
+                    val dbRef = FirebaseDatabase.getInstance().getReference("goals").child(userId)
+                    // Pass this 'dbRef' to your GoalAdapter
+                } else {
+                    // Handle unauthenticated user
+                }
+
+                // Clear the input field
+                holder.amountEditText.text.clear()
+            } else {
+                Toast.makeText(holder.itemView.context, "Please enter an amount", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun getItemCount(): Int = goals.size
 }
-

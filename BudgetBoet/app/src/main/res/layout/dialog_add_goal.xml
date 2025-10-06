@@ -10,8 +10,9 @@
         android:id="@+id/inputGoalName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Goal Name (e.g., New Laptop)"
-        android:inputType="textCapWords"/>
+        android:hint="@string/add_goal_hint_name"
+        android:inputType="textCapWords"
+        android:autofillHints="name" />
 
     <!-- This EditText MUST have the id @+id/inputTargetAmount -->
     <EditText
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Target Amount (e.g., 1500)"
-        android:inputType="number"/>
+        android:hint="@string/add_goal_hint_target"
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
 </LinearLayout>

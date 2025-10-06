@@ -20,5 +20,8 @@
     <string name="create_entry">Create Entry</string>
     <string name="amount">Amount</string>
 
-    <string name="expense_list">Expense List</string>"
+    <string name="expense_list">Expense List</string>
+
+    <string name="add_goal_hint_name">Goal Name (e.g., New Laptop)</string>
+    <string name="add_goal_hint_target">Target Amount (e.g., 1500)</string>
 </resources>

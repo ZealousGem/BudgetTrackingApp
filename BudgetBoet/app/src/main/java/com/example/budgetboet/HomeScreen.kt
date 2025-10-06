@@ -132,7 +132,8 @@ class HomeScreen : AppCompatActivity() {
         }
 
         ViewGoalsButton.setOnClickListener {
-                   /// no view goals screen found
+            val intent = Intent(applicationContext, Goals::class.java)
+            startActivity(intent)
         }
 
        navView.setNavigationItemSelectedListener {

@@ -21,6 +21,21 @@
         android:max="100"
         android:progress="40" />
 
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Add Amount Saved"
+        android:textAlignment="viewStart" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update" />
+
     <Button
         android:id="@+id/deleteGoalButton"
         android:layout_width="wrap_content"

@@ -1,14 +1,9 @@
-// In a new file named Goal.kt
 package com.example.budgetboet
 
+// Add an empty constructor and default values for Firebase deserialization
 data class Goal(
-    val name: String,
-    val targetAmount: Int,
-    var currentAmount: Int
-) {
-    val savedAmount: Int
-        get() {
-            TODO()
-        }
-}
-    
+    var id: String = "", // Unique ID for each goal
+    val name: String = "",
+    val targetAmount: Int = 0,
+    var savedAmount: Int = 0
+)
