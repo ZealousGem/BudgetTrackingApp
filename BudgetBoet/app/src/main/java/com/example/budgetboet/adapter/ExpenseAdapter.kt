@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetboet.R
 import com.example.budgetboet.model.Expense
+import com.bumptech.glide.Glide
 
 class ExpenseAdapter(private val expenseList: List<Expense>) :
     RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
@@ -32,8 +33,10 @@ class ExpenseAdapter(private val expenseList: List<Expense>) :
         holder.amount.text = "R${expense.amount}"
         holder.category.text = expense.category
         holder.date.text = "${expense.date}"
-        holder.image.setImageResource(expense.image)
+        Glide.with(holder.itemView.context)
+            .load(expense.image) // String URL
+            .into(holder.image) // The ImageView to load into
     }
 
-    override fun getItemCount() = expenseList.size
+        override fun getItemCount() = expenseList.size
 }
