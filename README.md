@@ -4,11 +4,28 @@ Open Source Project
 
 # Install Instructions 
 
-Download the zip Folder
+Download the zip folder
+
+
+
 Extract it
+
+
+
 Open Android Studio
-Find Open Porject then open the "BudgetBoet Folder"
+
+
+
+Find Open Project
+
+
+
+open the "BudgetBoet Folder" in the file explorer
+
+
 
 Sync The Gradle 
+
+
 
 Then Run The App
