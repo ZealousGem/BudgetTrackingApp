@@ -269,14 +269,11 @@ class ExpenseEntryActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Image upload failed: ${it.message}", Toast.LENGTH_LONG).show()
-                    // Optionally, save the expense without the image if upload fails
                     saveExpenseToDatabase(userId, name, amount, category, date, startTime, endTime, "")
                 }
         }
     }
 
-    // --- Refactored function for saving the expense to the Database ---
-    // --- Add this entire function to your ExpenseEntryActivity class ---
     private fun saveExpenseToDatabase(    userId: String,
                                           name: String,
                                           amount: Double,
@@ -285,8 +282,13 @@ class ExpenseEntryActivity : AppCompatActivity() {
                                           startTime: String,
                                           endTime: String,
                                           imageUrl: String // The URL from Firebase Storage, or "" if no image
-    ) {
-        // This is the CRITICAL part: Create a reference to the correct path
+    )
+    {
+
+        try {
+        } catch (e: Exception) {
+            TODO("Not yet implemented")
+        }
         val userExpensesRef = database.child("expenses").child(userId)
 
         // Create a unique key for the new expense
@@ -301,7 +303,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
         val expense = Expense(
             id = expenseId,
             name = name,
-            amount = amount.toString(), // Your Expense model expects a String for amount
+            amount = amount.toString(),
             category = category,
             date = date,
             startTime = startTime,
