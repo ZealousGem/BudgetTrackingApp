@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,7 +17,9 @@ import com.example.budgetboet.Login
 import com.example.budgetboet.NewCategory
 import com.example.budgetboet.R
 import com.example.budgetboet.adapter.ExpenseAdapter
+import com.example.budgetboet.model.Category
 import com.example.budgetboet.model.Expense
+import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +28,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.example.budgetboet.utils.UserUtils
 
 class ExpenseListActivity : AppCompatActivity() {
 
@@ -36,6 +38,7 @@ class ExpenseListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var expenseList: MutableList<Expense>
     private lateinit var adapter: ExpenseAdapter
+    private val categoryMap = mutableMapOf<String, String>() // Map<ID, Name>
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +53,13 @@ class ExpenseListActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvExpenses)
         recyclerView.layoutManager = LinearLayoutManager(this)
         expenseList = mutableListOf()
-        adapter = ExpenseAdapter(expenseList)
+        // Initialize adapter with an empty category map for now
+        adapter = ExpenseAdapter(expenseList, categoryMap)
         recyclerView.adapter = adapter
 
         // Load data from Firebase
-        loadExpenses()
+        loadCategoriesAndExpenses()
+
 
         // --- Navigation Setup ---
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
@@ -111,34 +116,56 @@ class ExpenseListActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadExpenses() {
+    private fun loadCategoriesAndExpenses() {
         val userId = auth.currentUser?.uid ?: return
+        val categoriesRef = database.child("categories").child(userId)
 
-        // This references the path: /expenses/{user_id}/
+        // 1. First, fetch the categories and populate the map
+        categoriesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                categoryMap.clear()
+                for (categorySnapshot in snapshot.children) {
+                    val category = categorySnapshot.getValue(Category::class.java)
+                    val categoryId = categorySnapshot.key
+                    if (category != null && categoryId != null) {
+                        categoryMap[categoryId] = category.name
+                    }
+                }
+                // 2. After categories are loaded, fetch the expenses
+                loadExpenses(userId)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ExpenseListActivity, "Failed to load categories: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun loadExpenses(userId: String) {
         val expensesRef = database.child("expenses").child(userId)
 
         expensesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Clear the list to reflect the current state of the database
                 expenseList.clear()
-
-                // Iterate through all expense entries for the user
                 for (expenseSnapshot in snapshot.children) {
                     val expense = expenseSnapshot.getValue(Expense::class.java)
                     if (expense != null) {
                         expenseList.add(expense)
                     }
                 }
+                // Sort expenses by date if needed (optional)
+                // expenseList.sortByDescending { it.date }
 
                 // Notify the adapter that the data set has changed
                 adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Toast.makeText(this@ExpenseListActivity, "Failed to load expenses: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){

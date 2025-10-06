@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.DecimalFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +34,7 @@ class CategorySpent : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var tableLayout: TableLayout
     private lateinit var durationSpinner: Spinner
+    private val categoryDetails = mutableMapOf<String, String>() // Map<ID, Name>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,33 +119,35 @@ class CategorySpent : AppCompatActivity() {
             }
         }
 
+        // Initial load
         loadAndDisplayCategoryExpenses("All time")
     }
 
     private fun loadAndDisplayCategoryExpenses(filter: String) {
         val userId = auth.currentUser?.uid
         if (userId == null) {
-            // Handle not logged in user
+            Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
             return
         }
 
         val categoriesRef = database.child("categories").child(userId)
         val expensesRef = database.child("expenses").child(userId)
 
-        val categoryDetails = mutableMapOf<String, Category>()
-
+        // First, fetch all category names
         categoriesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(categoriesSnapshot: DataSnapshot) {
+                categoryDetails.clear()
                 val categoryTotals = mutableMapOf<String, Double>()
                 for (catSnapshot in categoriesSnapshot.children) {
                     val category = catSnapshot.getValue(Category::class.java)
                     val categoryId = catSnapshot.key
                     if (category != null && categoryId != null) {
-                        categoryDetails[categoryId] = category
+                        categoryDetails[categoryId] = category.name
                         categoryTotals[categoryId] = 0.0 // Initialize all category totals to 0
                     }
                 }
 
+                // Now that we have the categories, fetch the expenses
                 expensesRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(expensesSnapshot: DataSnapshot) {
                         val calendar = Calendar.getInstance()
@@ -157,34 +162,47 @@ class CategorySpent : AppCompatActivity() {
                             val expense = expSnapshot.getValue(Expense::class.java)
 
                             if (expense != null && categoryTotals.containsKey(expense.category)) {
-                                try {
-                                    val expenseDate = SimpleDateFormat("dd-MM-yyyy", Locale.US).parse(expense.date)
-                                    if (filterStartDate == null || expenseDate.after(filterStartDate)) {
-                                        val currentTotal = categoryTotals[expense.category] ?: 0.0
-                                        val expenseAmountAsDouble = expense.amount.toString().toDoubleOrNull() ?: 0.0
-                                        categoryTotals[expense.category] = currentTotal + expenseAmountAsDouble
-                                    }
-                                } catch (e: Exception) {
-                                    // Date parsing error, maybe log it
+                                val expenseDate = parseDate(expense.date)
+
+                                if (expenseDate != null && (filterStartDate == null || expenseDate.after(filterStartDate))) {
+                                    val currentTotal = categoryTotals[expense.category] ?: 0.0
+                                    val expenseAmount = expense.amount.toDoubleOrNull() ?: 0.0
+                                    categoryTotals[expense.category] = currentTotal + expenseAmount
                                 }
                             }
                         }
-                        populateTable(categoryDetails, categoryTotals)
+                        populateTable(categoryTotals)
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        // Handle error reading expenses
+                        Toast.makeText(this@CategorySpent, "Failed to load expenses: ${error.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle error reading categories
+                Toast.makeText(this@CategorySpent, "Failed to load categories: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun populateTable(categoryDetails: Map<String, Category>, categoryTotals: Map<String, Double>) {
+    private fun parseDate(dateString: String): Date? {
+        // List of possible date formats
+        val formats = listOf(
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()),
+            SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        )
+        for (format in formats) {
+            try {
+                return format.parse(dateString)
+            } catch (e: ParseException) {
+                // Try the next format
+            }
+        }
+        return null // Return null if no format matches
+    }
+
+    private fun populateTable(categoryTotals: Map<String, Double>) {
         tableLayout.removeAllViews() // Clear existing rows
 
         // Header Row
@@ -205,12 +223,13 @@ class CategorySpent : AppCompatActivity() {
 
         val decimalFormat = DecimalFormat("#,##0.00")
 
-        for ((categoryId, category) in categoryDetails) {
+        // Display totals for all categories, even if they are zero
+        for ((categoryId, categoryName) in categoryDetails) {
             val total = categoryTotals[categoryId] ?: 0.0
 
             val tableRow = TableRow(this)
             val categoryNameView = TextView(this).apply {
-                text = category.name
+                text = categoryName
                 setPadding(16, 16, 16, 16)
             }
             val totalView = TextView(this).apply {

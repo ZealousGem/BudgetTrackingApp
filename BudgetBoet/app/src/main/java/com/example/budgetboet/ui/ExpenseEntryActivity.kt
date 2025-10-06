@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
@@ -25,12 +26,16 @@ import com.example.budgetboet.HomeScreen
 import com.example.budgetboet.Login
 import com.example.budgetboet.NewCategory
 import com.example.budgetboet.R
+import com.example.budgetboet.model.Category
 import com.example.budgetboet.model.Expense
 import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
@@ -52,6 +57,10 @@ class ExpenseEntryActivity : AppCompatActivity() {
     private var currentPhotoPath: String? = null
     private var imageUri: Uri? = null
     private lateinit var imageButton: ImageButton
+    private lateinit var categoryDropdown: Spinner
+
+    // --- List to hold category data ---
+    private val categoryList = mutableListOf<Pair<String, String>>() // Pair of (ID, Name)
 
     // --- Activity Result Launcher for Camera Intent (Modern approach) ---
     private val cameraResultLauncher = registerForActivityResult(
@@ -79,7 +88,6 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
         // --- Initialize Firebase Storage ---
         database = FirebaseDatabase.getInstance().reference
-        val bucketUrl = "gs://budgetboet-receipts-free"
         storageRef = FirebaseStorage.getInstance().reference
 
         /// navigation stuff
@@ -88,11 +96,11 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
         // --- Get reference to ImageButton ---
         imageButton = findViewById(R.id.imageButton)
+        categoryDropdown = findViewById(R.id.categoryDropDown)
 
         // Existing view references
         val nameInput = findViewById<EditText>(R.id.txtEntryName)
         val amountInput = findViewById<EditText>(R.id.txtAmount)
-        val categoryDropdown = findViewById<Spinner>(R.id.categoryDropDown)
         val dateDropdown = findViewById<DatePicker>(R.id.datePicker)
         val startTimeDropdown = findViewById<TimePicker>(R.id.startTimePicker)
         val endTimeDropdown = findViewById<TimePicker>(R.id.endTimePicker)
@@ -113,6 +121,11 @@ class ExpenseEntryActivity : AppCompatActivity() {
         if(user != null){
             // ... login redirect ...
             UserUtils.loadUserNameAndEmail(user.uid, navView)
+            loadCategories(user.uid)
+        } else {
+            // Handle user not logged in
+            Toast.makeText(this, "Please log in to manage expenses.", Toast.LENGTH_LONG).show()
+            finish() // or redirect to login
         }
 
         navView.setNavigationItemSelectedListener {
@@ -156,12 +169,19 @@ class ExpenseEntryActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val name = nameInput.text.toString().trim()
             val amount = amountInput.text.toString().toDoubleOrNull() ?: 0.0
-            val category = categoryDropdown.selectedItem.toString()
+            val selectedPosition = categoryDropdown.selectedItemPosition
 
             if (name.isEmpty() || amount <= 0.0) {
                 Toast.makeText(this, "Please enter a valid name and amount.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            if (selectedPosition < 0 || selectedPosition >= categoryList.size) {
+                Toast.makeText(this, "Please select a valid category.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val categoryId = categoryList[selectedPosition].first
+
 
             // Date and Time formatting logic (remains the same)
             val day = dateDropdown.dayOfMonth
@@ -185,16 +205,41 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
                 // If an image was taken, upload it first
                 if (imageUri != null) {
-                    uploadImageAndSaveExpense(userId, name, amount, category, date, startTime, endTime)
+                    uploadImageAndSaveExpense(userId, name, amount, categoryId, date, startTime, endTime)
                 } else {
                     // Save the expense without an image URL
-                    saveExpenseToDatabase(userId, name, amount, category, date, startTime, endTime, "")
+                    saveExpenseToDatabase(userId, name, amount, categoryId, date, startTime, endTime, "")
                 }
 
             } else {
                 Toast.makeText(this, "User not authenticated. Cannot save expense.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun loadCategories(userId: String) {
+        val categoriesRef = database.child("categories").child(userId)
+        categoriesRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                categoryList.clear()
+                val categoryNames = mutableListOf<String>()
+                for (categorySnapshot in snapshot.children) {
+                    val category = categorySnapshot.getValue(Category::class.java)
+                    val categoryId = categorySnapshot.key
+                    if (category != null && categoryId != null) {
+                        categoryList.add(Pair(categoryId, category.name))
+                        categoryNames.add(category.name)
+                    }
+                }
+                val adapter = ArrayAdapter(this@ExpenseEntryActivity, android.R.layout.simple_spinner_item, categoryNames)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                categoryDropdown.adapter = adapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ExpenseEntryActivity, "Failed to load categories: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     // --- Function to create a temporary file for the photo ---
@@ -214,6 +259,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
     }
 
     // --- Function to dispatch the camera intent ---
+    // --- Function to dispatch the camera intent ---
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -224,21 +270,30 @@ class ExpenseEntryActivity : AppCompatActivity() {
                 } catch (ex: java.io.IOException) {
                     // Error occurred while creating the File
                     Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show()
-                    null
+                    null // Return null if file creation fails
                 }
                 // Continue only if the File was successfully created
                 photoFile?.also {
-                    imageUri = FileProvider.getUriForFile(
+                    // Create a content URI for the file using FileProvider
+                    val photoURI: Uri = FileProvider.getUriForFile(
                         this,
-                        "com.example.budgetboet.fileprovider",
+                        "${applicationContext.packageName}.fileprovider",
                         it
                     )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+
+                    // Save the URI to be used after the camera returns a result
+                    imageUri = photoURI
+
+                    // Add the URI as an extra to the intent. This tells the camera where to save the image.
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+                    // Launch the camera intent using the modern Activity Result Launcher
                     cameraResultLauncher.launch(takePictureIntent)
                 }
             }
         }
     }
+
 
     // --- Function to upload image to Firebase Storage and save expense data ---
     private fun uploadImageAndSaveExpense(
@@ -285,10 +340,6 @@ class ExpenseEntryActivity : AppCompatActivity() {
     )
     {
 
-        try {
-        } catch (e: Exception) {
-            TODO("Not yet implemented")
-        }
         val userExpensesRef = database.child("expenses").child(userId)
 
         // Create a unique key for the new expense
