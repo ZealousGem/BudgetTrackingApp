@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.budgetboet.model.Category
 import com.example.budgetboet.ui.ExpenseEntryActivity
 import com.example.budgetboet.ui.ExpenseListActivity
 import com.example.budgetboet.utils.UserUtils
@@ -88,7 +89,7 @@ class NewCategory : AppCompatActivity() {
         val createCatButton: Button = findViewById(R.id.CreateCat)
 
         // Populate spinner
-        val categoryTypes = arrayOf("Income", "Expense", "Savings", "Investment")
+        val categoryTypes = arrayOf("Housing", "Transportation", "Food & Groceries", "Health & Wellness", "Personal Care", "Entertainment & Leisure", "Education", "Savings & Investments", "Debt", "Miscellaneous")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryTypes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         catTypeSpinner.adapter = adapter
@@ -111,16 +112,13 @@ class NewCategory : AppCompatActivity() {
             }
 
             val database = FirebaseDatabase.getInstance().reference
-            val categoryId = database.child("categories").push().key
+            val userCategoriesRef = database.child("categories").child(userId)
+            val categoryId = userCategoriesRef.push().key
 
             if (categoryId != null) {
-                val category = HashMap<String, Any>()
-                category["name"] = categoryName
-                category["type"] = categoryType
-                category["description"] = categoryDesc
-                category["userId"] = userId
+                val newCategory = Category(categoryName, categoryType, categoryDesc)
 
-                database.child("categories").child(categoryId).setValue(category)
+                userCategoriesRef.child(categoryId).setValue(newCategory)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Category created successfully", Toast.LENGTH_SHORT).show()

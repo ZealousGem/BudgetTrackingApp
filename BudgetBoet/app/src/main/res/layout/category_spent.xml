@@ -76,10 +76,16 @@
 
             </LinearLayout>
 
+            <Spinner
+                android:id="@+id/duration"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:padding="8dp" />
+
             <TableLayout
                 android:id="@+id/Table"
                 android:layout_width="match_parent"
-                android:layout_height="457dp" />
+                android:layout_height="302dp" />
 
             <Button
                 android:id="@+id/button"
