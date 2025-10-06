@@ -36,7 +36,7 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
+                android:layout_height="68dp"
                 android:text="NEW CATEGORY"
                 android:textAlignment="center"
                 android:textSize="34sp"
@@ -72,11 +72,11 @@
             <Spinner
                 android:id="@+id/CatType"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -85,13 +85,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="258dp"
+                android:layout_height="192dp"
                 android:padding="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/CatDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="228dp"
+                    android:layout_height="159dp"
                     android:hint="Description..."
                     android:padding="8dp"
                     android:scrollHorizontally="false"
