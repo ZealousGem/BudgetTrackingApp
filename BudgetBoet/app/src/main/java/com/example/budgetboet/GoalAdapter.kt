@@ -50,15 +50,14 @@ class GoalAdapter(
                 // Perform an "optimistic" UI update for immediate feedback
                 val newSavedAmount = goal.savedAmount + amount
                 holder.goalProgressBar.progress = newSavedAmount
-                
-                // Update the value in Firebase in the background
-                val userId = FirebaseAuth.getInstance().currentUser?.uid
-                if (userId != null) {
-                    val dbRef = FirebaseDatabase.getInstance().getReference("goals").child(userId)
-                    // Pass this 'dbRef' to your GoalAdapter
-                } else {
-                    // Handle unauthenticated user
+
+
+                val update = mapOf<String, Any>("${goal.id}/savedAmount" to newSavedAmount)
+
+                dbRef.updateChildren(update).addOnSuccessListener{
+                    Toast.makeText(holder.itemView.context, "successs", Toast.LENGTH_SHORT).show()
                 }
+
 
                 // Clear the input field
                 holder.amountEditText.text.clear()
