@@ -46,6 +46,8 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var ViewGoalsButton : Button
 
+    private lateinit var GraphButton : Button
+
     private lateinit var toggle : ActionBarDrawerToggle
 
     // private  lateinit var user: FirebaseUser
@@ -68,6 +70,8 @@ class HomeScreen : AppCompatActivity() {
 
         CreateGoalsButton = findViewById(R.id.Create_Goals)
         ViewGoalsButton = findViewById(R.id.View_Goals)
+
+        GraphButton = findViewById(R.id.View_Graph)
 
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
@@ -133,6 +137,11 @@ class HomeScreen : AppCompatActivity() {
 
         ViewGoalsButton.setOnClickListener {
             val intent = Intent(applicationContext, Goals::class.java)
+            startActivity(intent)
+        }
+
+        GraphButton.setOnClickListener {
+            val intent = Intent(applicationContext, GraphScreen::class.java)
             startActivity(intent)
         }
 

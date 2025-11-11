@@ -160,6 +160,48 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/GraphSection"
+            android:layout_width="400dp"
+            android:layout_height="150dp"
+            android:orientation="vertical"   android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/GoalsSection"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="top|center_horizontal"
+            android:layout_marginStart="24dp"  android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="Graphs"
+                android:layout_marginTop="8dp"/> <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"  android:gravity="center">
+
+            <Button
+                android:id="@+id/View_Graph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/black"
+                android:text="Create" />
+
+            <Button
+                android:id="@+id/View_GoalGraph"
+                android:backgroundTint="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/logout"
             android:layout_width="wrap_content"
@@ -169,7 +211,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/GoalsSection"
+            app:layout_constraintTop_toBottomOf="@id/GraphSection"
             app:layout_constraintVertical_bias="0.25" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
