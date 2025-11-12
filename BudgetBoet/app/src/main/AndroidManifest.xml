@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetBoet">
 
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -56,6 +57,9 @@
             android:exported="false" />
         <activity
             android:name=".GraphScreen"
+            android:exported="false" />
+        <activity
+            android:name=".LineGraphScreen"
             android:exported="false" />
         <activity
             android:name=".HomeScreen"
