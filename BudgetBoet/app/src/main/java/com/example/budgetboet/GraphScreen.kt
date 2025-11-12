@@ -3,15 +3,18 @@ package com.example.budgetboet
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.budgetboet.ui.ExpenseEntryActivity
 import com.example.budgetboet.ui.ExpenseListActivity
+import com.example.budgetboet.databinding.ActivityGraphScreenBinding
 import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+
 
 
 class GraphScreen : AppCompatActivity() {
@@ -19,10 +22,15 @@ class GraphScreen : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var toggle : ActionBarDrawerToggle
 
+    private var _binding: ActivityGraphScreenBinding? = null
+    private val binding get() = _binding!!
+
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_graph_screen)
+        _binding = ActivityGraphScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
 
@@ -74,6 +82,18 @@ class GraphScreen : AppCompatActivity() {
 
 
 
+        binding.apply {
+
+            barGraph.animation.duration = animationDuration
+            barGraph.animate(barSet)
+
+
+
+        }
+
+
+
+
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -82,5 +102,31 @@ class GraphScreen : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    companion object {
+        // Data for the regular (vertical) bar chart. List of pairs: Label (String) to Value (Float)
+        private val barSet = listOf(
+            "JAN" to 4F,
+            "FEB" to 7F,
+            "MAR" to 2F,
+            "MAY" to 2.3F,
+            "APR" to 5F,
+            "JUN" to 4F
+        )
+
+        // Data for the horizontal bar chart
+        private val horizontalBarSet = listOf(
+            "PORRO" to 5F,
+            "FUSCE" to 6.4F,
+            "EGET" to 3F
+        )
+
+        // Animation duration constant in milliseconds (1 second)
+        private const val animationDuration = 1000L
+    }
 }
+
+
+
+
 

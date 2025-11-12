@@ -20,7 +20,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <com.db.williamchart.view.BarChartView
+            android:id="@+id/barGraph"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:chart_axis ="x"
+            app:chart_barsColor ="#0D4F85"
+            app:chart_barsRadius ="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="5dp">
 
+        </com.db.williamchart.view.BarChartView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

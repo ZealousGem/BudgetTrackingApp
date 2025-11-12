@@ -1,5 +1,6 @@
 
 
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,6 +20,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -36,6 +38,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    buildFeatures{
+        viewBinding = true
     }
 }
 
@@ -60,4 +66,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.diogobernardino:williamchart:3.10.1")
+
+
+
 }
