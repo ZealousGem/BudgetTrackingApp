@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth
 import android.graphics.Color
 
 
+
+
+
 class LineGraphScreen : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -80,12 +83,14 @@ class LineGraphScreen : AppCompatActivity() {
         }
 
         binding.apply {
+
             LineChart.gradientFillColors =
                 intArrayOf(
                     Color.parseColor("#81FFFFFF"),
                     Color.TRANSPARENT
                 )
             LineChart.animation.duration = animationDuration
+
             LineChart.onDataPointTouchListener = { index, _, _ ->
                 tvChartData.text =
                     lineSet.toList()[index]
@@ -93,6 +98,7 @@ class LineGraphScreen : AppCompatActivity() {
                         .toString()
             }
             LineChart.animate(lineSet)
+
         }
 
     }
@@ -118,6 +124,9 @@ class LineGraphScreen : AppCompatActivity() {
             "label5" to 3.6f,
 
         )
+
+
+
 
         private const val animationDuration = 1000L
     }

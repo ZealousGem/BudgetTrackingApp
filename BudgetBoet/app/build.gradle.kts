@@ -66,7 +66,10 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-    implementation("com.diogobernardino:williamchart:3.10.1")
+    implementation("com.diogobernardino:williamchart:3.11.0")
+
+
+// Use the latest stable version (or whatever version you intended)
 
 
 
