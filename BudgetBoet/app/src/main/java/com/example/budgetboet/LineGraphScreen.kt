@@ -14,9 +14,16 @@ import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import android.graphics.Color
-
-
-
+import android.provider.ContactsContract
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.CombinedData
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
 
 
 class LineGraphScreen : AppCompatActivity() {
@@ -27,6 +34,11 @@ class LineGraphScreen : AppCompatActivity() {
     private var _binding : ActivityLineGraphScreenBinding? = null
 
     private val binding get() = _binding!!
+
+    private val value = ArrayList<Entry>()
+    private val valueBarChart = ArrayList<BarEntry>()
+
+    private val xLabels = mutableListOf<String>()
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,24 +94,87 @@ class LineGraphScreen : AppCompatActivity() {
             true
         }
 
-        binding.apply {
+       DataListing()
 
-            LineChart.gradientFillColors =
-                intArrayOf(
-                    Color.parseColor("#81FFFFFF"),
-                    Color.TRANSPARENT
-                )
-            LineChart.animation.duration = animationDuration
+    }
 
-            LineChart.onDataPointTouchListener = { index, _, _ ->
-                tvChartData.text =
-                    lineSet.toList()[index]
-                        .second
-                        .toString()
-            }
-            LineChart.animate(lineSet)
+    private fun DataListing(){
+        value.add(Entry(0f, 150f))
+        value.add(Entry(1f, 50f))
+        value.add(Entry(2f, 180f))
 
-        }
+        valueBarChart.add(BarEntry(0f, 140f))
+        valueBarChart.add(BarEntry(1f, 30f))
+        valueBarChart.add(BarEntry(2f, 130f))
+
+        xLabels.add("Food")      // Corresponds to x=0f
+        xLabels.add("Transport") // Corresponds to x=1f
+        xLabels.add("Bills")     // Corresponds to x=2f
+
+        setChart()
+    }
+
+    private fun setChart(){
+
+        val LineInfo = LineDataSet(value, "Maxium Goals")
+        LineInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+        LineInfo.valueTextColor = Color.BLUE
+        LineInfo.circleColors = listOf(Color.RED)
+        LineInfo.lineWidth = 5f
+        LineInfo.circleRadius = 10f
+        LineInfo.setDrawValues(false)
+
+        val BarInfo = BarDataSet(valueBarChart, "Progression to goal")
+        BarInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+
+       val data= CombinedData()
+
+        data.setData(LineData(LineInfo))
+        data.setData(BarData(BarInfo))
+
+
+        val xAxis = binding.LineChart.xAxis
+        xAxis.valueFormatter = com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xLabels)
+        xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+        xAxis.setCenterAxisLabels(false)
+        xAxis.setGranularity(1f)
+        xAxis.axisMinimum = 0f
+        // ... (Your existing XAxis label formatter and position setup)
+
+        // ⭐ HIDE GRID LINES ⭐
+        xAxis.setDrawGridLines(false) // Hides vertical grid lines
+
+        val leftAxis = binding.LineChart.axisLeft
+        leftAxis.setDrawGridLines(false) // Hides horizontal grid lines on the left side
+
+        binding.LineChart.setExtraOffsets(15f, 0f, 0f, 0f)
+
+        val rightAxis = binding.LineChart.axisRight
+        rightAxis.setDrawGridLines(false) // Hides horizontal grid lines on the right side
+        rightAxis.setDrawLabels(false) // Optionally hide the right axis labels if they aren't used
+        rightAxis.setDrawAxisLine(false)
+
+
+        xAxis.axisMaximum = xLabels.size.toFloat()
+
+        binding.LineChart.data = data
+        binding.LineChart.description.isEnabled = false
+        binding.LineChart.description.text = "graph shows visual represenation of goal progress"
+        binding.LineChart.setNoDataText("No Current Goals Available")
+        binding.LineChart.description.textColor = Color.BLACK
+        binding.LineChart.description.textSize = 12f
+        binding.LineChart.animateXY(1400, 1400)
+        binding.LineChart.setTouchEnabled(true)
+        binding.LineChart.setPinchZoom(true)
+
+       // binding.LineChart.zoom(2f, 1f, 0f, 0f)
+
+
+        val legend = binding.LineChart.legend
+        legend.isEnabled = true
+        legend.form = Legend.LegendForm.LINE
+        legend.textSize = 12f
+        legend.textColor = Color.BLACK
 
     }
 

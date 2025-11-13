@@ -104,6 +104,10 @@ class GraphScreen : AppCompatActivity() {
         val categoriesRef = database.child("categories").child(userId)
         val expensesRef = database.child("expenses").child(userId)
 
+        val calender = Calendar.getInstance()
+        calender.add(Calendar.MONTH, -1)
+        val filterStartDate = calender.time
+
         // 1. Fetch all category names
         categoriesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(categoriesSnapshot: DataSnapshot) {
@@ -125,10 +129,16 @@ class GraphScreen : AppCompatActivity() {
                             val expense = expSnapshot.getValue(Expense::class.java)
 
                             if (expense != null && categoryTotals.containsKey(expense.category)) {
-                                val currentTotal = categoryTotals[expense.category] ?: 0.0
-                                // Safely convert amount, assuming the value is stored as a String
-                                val expenseAmount = expense.amount.toDoubleOrNull() ?: 0.0
-                                categoryTotals[expense.category] = currentTotal + expenseAmount
+
+                                val expenseDate = parseDate(expense.date)
+
+                                if(expenseDate != null && expenseDate.after(filterStartDate)){
+                                    val currentTotal = categoryTotals[expense.category] ?: 0.0
+                                    // Safely convert amount, assuming the value is stored as a String
+                                    val expenseAmount = expense.amount.toDoubleOrNull() ?: 0.0
+                                    categoryTotals[expense.category] = currentTotal + expenseAmount
+                                }
+
                             }
                         }
 
@@ -183,6 +193,22 @@ class GraphScreen : AppCompatActivity() {
             // Animate the graph with the new, real data
             barGraph.animate(graphData)
         }
+    }
+
+    private fun parseDate(dateString: String): Date? {
+        // List of possible date formats
+        val formats = listOf(
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()),
+            SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        )
+        for (format in formats) {
+            try {
+                return format.parse(dateString)
+            } catch (e: ParseException) {
+                // Try the next format
+            }
+        }
+        return null // Return null if no format matches
     }
 
 

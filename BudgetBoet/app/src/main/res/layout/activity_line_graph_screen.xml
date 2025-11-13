@@ -23,35 +23,33 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
-            tools:text="Goals "
+            android:text="Goals "
             android:id="@+id/tvChartData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
+            android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
-        <com.db.williamchart.view.LineChartView
+        <com.github.mikephil.charting.charts.CombinedChart
             android:id="@+id/LineChart"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:chart_lineColor="#03A9F4"
             app:layout_constraintTop_toBottomOf="@id/tvChartData"
-            app:chart_smoothLine = "true"
-            app:chart_gridEffect="dotted"
-            app:chart_axis="x"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:chart_lineThickness="4dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginHorizontal="2dp"
             >
 
-        </com.db.williamchart.view.LineChartView>
+
+
+        </com.github.mikephil.charting.charts.CombinedChart>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
