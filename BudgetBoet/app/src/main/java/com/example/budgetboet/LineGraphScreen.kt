@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import android.graphics.Color
 import android.provider.ContactsContract
+import android.widget.Toast
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -24,12 +25,19 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class LineGraphScreen : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var toggle : ActionBarDrawerToggle
+
+    private lateinit var dbRef: DatabaseReference
 
     private var _binding : ActivityLineGraphScreenBinding? = null
 
@@ -61,6 +69,10 @@ class LineGraphScreen : AppCompatActivity() {
         val user = auth.currentUser
         if(user != null){
             UserUtils.loadUserNameAndEmail(user.uid, navView)
+
+            dbRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(user.uid).child("goals")
+            DataListing()
         }
 
         navView.setNavigationItemSelectedListener {
@@ -94,38 +106,79 @@ class LineGraphScreen : AppCompatActivity() {
             true
         }
 
-       DataListing()
+
 
     }
 
     private fun DataListing(){
-        value.add(Entry(0f, 150f))
-        value.add(Entry(1f, 50f))
-        value.add(Entry(2f, 180f))
 
-        valueBarChart.add(BarEntry(0f, 140f))
-        valueBarChart.add(BarEntry(1f, 30f))
-        valueBarChart.add(BarEntry(2f, 130f))
+        dbRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
 
-        xLabels.add("Food")      // Corresponds to x=0f
-        xLabels.add("Transport") // Corresponds to x=1f
-        xLabels.add("Bills")     // Corresponds to x=2f
+                value.clear()
+                valueBarChart.clear()
+                xLabels.clear()
 
-        setChart()
+                var index = 0f
+
+                for(GoalSnap in snapshot.children){
+                    val goal = GoalSnap.getValue(Goal::class.java)
+
+                    if(goal != null)
+                    {
+                        value.add(Entry(index, goal.targetAmount.toFloat()))
+
+                        valueBarChart.add(BarEntry(index, goal.savedAmount.toFloat()))
+
+                        xLabels.add(goal.name)
+
+                        index++
+                    }
+                }
+
+                setChart()
+                binding.LineChart.invalidate()
+
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@LineGraphScreen, "Failed to load goals: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+//        value.add(Entry(0f, 150f))
+//        value.add(Entry(1f, 50f))
+//        value.add(Entry(2f, 180f))
+//
+//        valueBarChart.add(BarEntry(0f, 140f))
+//        valueBarChart.add(BarEntry(1f, 30f))
+//        valueBarChart.add(BarEntry(2f, 130f))
+//
+//        xLabels.add("Food")      // Corresponds to x=0f
+//        xLabels.add("Transport") // Corresponds to x=1f
+//        xLabels.add("Bills")     // Corresponds to x=2f
+
+
     }
 
     private fun setChart(){
 
-        val LineInfo = LineDataSet(value, "Maxium Goals")
-        LineInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
-        LineInfo.valueTextColor = Color.BLUE
-        LineInfo.circleColors = listOf(Color.RED)
+        val LineInfo = LineDataSet(value, "Target Goal")
+        //LineInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+        LineInfo.setColor(R.color.secondary_dark)
+        LineInfo.setDrawValues(true)
+        LineInfo.valueTextColor = Color.DKGRAY
+        LineInfo.circleColors = listOf(R.color.teal)
         LineInfo.lineWidth = 5f
         LineInfo.circleRadius = 10f
+        LineInfo.setHighLightColor(resources.getColor(R.color.blue, theme))
         LineInfo.setDrawValues(false)
 
-        val BarInfo = BarDataSet(valueBarChart, "Progression to goal")
-        BarInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+        val BarInfo = BarDataSet(valueBarChart, "Progress amount")
+       // BarInfo.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+        BarInfo.setColor(resources.getColor(R.color.dark_blue, theme))
+        BarInfo.setDrawValues(true)
+        BarInfo.valueTextSize = 15f
 
        val data= CombinedData()
 
@@ -138,7 +191,9 @@ class LineGraphScreen : AppCompatActivity() {
         xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
         xAxis.setCenterAxisLabels(false)
         xAxis.setGranularity(1f)
-        xAxis.axisMinimum = 0f
+        xAxis.axisMinimum = -0.5f
+        xAxis.axisMaximum = xLabels.size.toFloat() - 0.5f // Set max based on number of goals
+        xAxis.setDrawGridLines(false) // Hide vertical grid lines
         // ... (Your existing XAxis label formatter and position setup)
 
         // ⭐ HIDE GRID LINES ⭐
@@ -147,7 +202,7 @@ class LineGraphScreen : AppCompatActivity() {
         val leftAxis = binding.LineChart.axisLeft
         leftAxis.setDrawGridLines(false) // Hides horizontal grid lines on the left side
 
-        binding.LineChart.setExtraOffsets(15f, 0f, 0f, 0f)
+        binding.LineChart.setExtraOffsets(15f, 0f, 15f, 15f)
 
         val rightAxis = binding.LineChart.axisRight
         rightAxis.setDrawGridLines(false) // Hides horizontal grid lines on the right side
@@ -175,6 +230,11 @@ class LineGraphScreen : AppCompatActivity() {
         legend.form = Legend.LegendForm.LINE
         legend.textSize = 12f
         legend.textColor = Color.BLACK
+        legend.xEntrySpace = 20f
+
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER // Common choice for top placement
+        legend.orientation = Legend.LegendOrientation.HORIZONTAL
 
     }
 
@@ -190,19 +250,5 @@ class LineGraphScreen : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-    companion object {
-        private val lineSet = listOf(
-            "label1" to 5f,
-            "label2" to 4.5f,
-            "label3" to 4.7f,
-            "label4" to 3.5f,
-            "label5" to 3.6f,
 
-        )
-
-
-
-
-        private const val animationDuration = 1000L
-    }
 }
