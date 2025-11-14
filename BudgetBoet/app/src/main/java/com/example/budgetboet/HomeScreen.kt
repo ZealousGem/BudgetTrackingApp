@@ -50,6 +50,8 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var LineGraphButton : Button
 
+    private lateinit var RewardButton : Button
+
     private lateinit var toggle : ActionBarDrawerToggle
 
     // private  lateinit var user: FirebaseUser
@@ -75,6 +77,8 @@ class HomeScreen : AppCompatActivity() {
 
         GraphButton = findViewById(R.id.View_Graph)
         LineGraphButton = findViewById(R.id.View_GoalGraph)
+
+        RewardButton = findViewById(R.id.View_Rewards)
 
         val drawerLayout : DrawerLayout = findViewById(R.id.main)
         val navView : NavigationView = findViewById(R.id.nav_view)
@@ -150,6 +154,11 @@ class HomeScreen : AppCompatActivity() {
 
         LineGraphButton.setOnClickListener {
             val intent = Intent(applicationContext, LineGraphScreen::class.java)
+            startActivity(intent)
+        }
+
+        RewardButton.setOnClickListener {
+            val intent = Intent(applicationContext, RewardsActivity::class.java)
             startActivity(intent)
         }
 

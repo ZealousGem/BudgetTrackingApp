@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".HomeScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,196 +22,240 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/user_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="User"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/ExpenseEntry"
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <LinearLayout
-            android:id="@+id/ExpenseEntry"
-            android:layout_width="400dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"   android:background="@color/gray_light"
-            app:layout_constraintTop_toBottomOf="@id/user_details"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="top|center_horizontal"
-            android:layout_marginTop="16dp" android:layout_marginStart="24dp"  android:layout_marginEnd="24dp">
-
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="Expense Entries"
-            android:layout_marginTop="8dp"/> <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"  android:gravity="center">
-
-            <Button
-                android:id="@+id/Create_Entry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/black"
-                android:text="Create" />
-
-            <Button
-                android:id="@+id/View_Entry"
-                android:backgroundTint="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View" />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/CateogrySection"
-            android:layout_width="400dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"   android:background="@color/gray_light"
-            app:layout_constraintTop_toBottomOf="@id/ExpenseEntry"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="top|center_horizontal"
-            android:layout_marginTop="16dp" android:layout_marginStart="24dp"  android:layout_marginEnd="24dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Categories"
-                android:layout_marginTop="8dp"/> <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"  android:gravity="center">
-
-            <Button
-                android:id="@+id/Create_Category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/black"
-                android:text="Create" />
-
-            <Button
-                android:id="@+id/View_Category"
-                android:backgroundTint="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View" />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/GoalsSection"
-            android:layout_width="400dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"   android:background="@color/gray_light"
-            app:layout_constraintTop_toBottomOf="@id/CateogrySection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="top|center_horizontal"
-            android:layout_marginStart="24dp"  android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Financial Goals"
-                android:layout_marginTop="8dp"/> <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"  android:gravity="center">
-
-            <Button
-                android:id="@+id/Create_Goals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/black"
-                android:text="Create" />
-
-            <Button
-                android:id="@+id/View_Goals"
-                android:backgroundTint="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View" />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/GraphSection"
-            android:layout_width="400dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"   android:background="@color/gray_light"
-            app:layout_constraintTop_toBottomOf="@id/GoalsSection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="top|center_horizontal"
-            android:layout_marginStart="24dp"  android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Graphs"
-                android:layout_marginTop="8dp"/> <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"  android:gravity="center">
-
-            <Button
-                android:id="@+id/View_Graph"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/black"
-                android:text="Category" />
-
-            <Button
-                android:id="@+id/View_GoalGraph"
-                android:backgroundTint="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Goals" />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/GraphSection"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- FIX: All scrollable content is now wrapped in this vertical LinearLayout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingBottom="32dp">
+
+                <TextView
+                    android:id="@+id/user_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="User"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp" />
+
+                <LinearLayout
+                    android:id="@+id/ExpenseEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_light"
+                    android:gravity="top|center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="Expense Entries"
+                        android:layout_marginTop="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/Create_Entry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="Create" />
+
+                        <Button
+                            android:id="@+id/View_Entry"
+                            android:backgroundTint="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/CateogrySection"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_light"
+                    android:gravity="top|center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="Categories"
+                        android:layout_marginTop="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/Create_Category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="Create" />
+
+                        <Button
+                            android:id="@+id/View_Category"
+                            android:backgroundTint="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/GoalsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_light"
+                    android:gravity="top|center_horizontal"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="Financial Goals"
+                        android:layout_marginTop="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/Create_Goals"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="Create" />
+
+                        <Button
+                            android:id="@+id/View_Goals"
+                            android:backgroundTint="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/GraphSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_light"
+                    android:gravity="top|center_horizontal"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="Graphs"
+                        android:layout_marginTop="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/View_Graph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:backgroundTint="@color/black"
+                            android:text="Category" />
+
+                        <Button
+                            android:id="@+id/View_GoalGraph"
+                            android:backgroundTint="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Goals" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/RewardSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:background="@color/gray_light"
+                    android:gravity="top|center_horizontal"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="Rewards"
+                        android:layout_marginTop="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/View_Rewards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="1dp"
+                            android:backgroundTint="@color/black"
+                            android:text="View" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:layout_marginTop="32dp" />
+
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -225,5 +268,6 @@
         app:menu="@menu/menu"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
