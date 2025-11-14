@@ -54,6 +54,17 @@
         </menu>
     </item>
 
+    <item android:title="Rewards">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_rewards"
+                android:icon="@drawable/outline_acute_24"
+                android:title="Rewards"/>
+        </menu>
+    </item>
+
     <item android:title="Extra">
 
         <menu>
@@ -62,10 +73,8 @@
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/outline_arrow_left_alt_24"
                 android:title="Log Out"/>
-
         </menu>
     </item>
-
 
 
 </menu>

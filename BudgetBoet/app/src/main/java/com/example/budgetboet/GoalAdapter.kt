@@ -17,7 +17,8 @@ import java.util.Locale
 
 class GoalAdapter(
     private val goals: MutableList<Goal>,
-    private val dbRef: DatabaseReference
+    private val dbRef: DatabaseReference,
+    private val userPointsRef: DatabaseReference
 ) : RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
 
     class GoalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

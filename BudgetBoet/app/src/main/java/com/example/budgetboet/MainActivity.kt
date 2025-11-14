@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DatabaseReference // Import DatabaseReference
-import com.google.firebase.database.database // Import Firebase ktx
-import com.google.firebase.Firebase // Import Firebase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
+import com.google.firebase.Firebase
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,11 +20,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var goalList: MutableList<Goal>
     private lateinit var addGoalButton: FloatingActionButton
     private lateinit var dbRef: DatabaseReference
+    private lateinit var userPointsRef: DatabaseReference // 1. Declare a new reference for user points
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goals)
         dbRef = Firebase.database.reference.child("goals")
+        userPointsRef = Firebase.database.reference.child("userPoints") // 2. Initialize the reference
 
         goalList = mutableListOf()
 
@@ -32,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        adapter = GoalAdapter(goalList, dbRef)
+        // 3. Pass the new 'userPointsRef' to the GoalAdapter constructor
+        adapter = GoalAdapter(goalList, dbRef, userPointsRef)
         recyclerView.adapter = adapter
 
         addGoalButton = findViewById(R.id.addGoalButton)
@@ -65,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                         goalList.add(Goal(name, target.toString(), 0))
                         adapter.notifyItemInserted(goalList.size - 1)
                         recyclerView.scrollToPosition(goalList.size - 1)
+                        // You should also save the new goal to Firebase here
                         dialog.dismiss()
                     } else {
                         Toast.makeText(this, "Enter a valid target amount", Toast.LENGTH_SHORT).show()

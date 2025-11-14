@@ -34,6 +34,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
         <activity
             android:name=".Register"
             android:exported="false" />
@@ -56,6 +57,9 @@
             android:name=".Goals"
             android:exported="false" />
         <activity
+            android:name=".RewardsActivity"
+            android:exported="false" />
+        <activity
             android:name=".GraphScreen"
             android:exported="false" />
         <activity
@@ -64,6 +68,7 @@
         <activity
             android:name=".HomeScreen"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

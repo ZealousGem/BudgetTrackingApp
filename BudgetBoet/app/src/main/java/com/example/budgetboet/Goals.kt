@@ -32,7 +32,7 @@ class Goals : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var dbRef: DatabaseReference
-
+    private lateinit var userPointsRef: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GoalAdapter
     private lateinit var goalList: MutableList<Goal>
@@ -51,13 +51,14 @@ class Goals : AppCompatActivity() {
         }
 
         dbRef = FirebaseDatabase.getInstance().getReference("users").child(user.uid).child("goals")
+        userPointsRef = FirebaseDatabase.getInstance().getReference("users").child(user.uid).child("points") // <--- ADD THIS LINE
 
         setupUI()
 
         goalList = mutableListOf()
         recyclerView = findViewById(R.id.recycle)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = GoalAdapter(goalList, dbRef) // Pass dbRef to adapter
+        adapter = GoalAdapter(goalList, dbRef, userPointsRef)
         recyclerView.adapter = adapter
 
         addGoalButton = findViewById(R.id.addGoalButton)
@@ -94,6 +95,7 @@ class Goals : AppCompatActivity() {
                 R.id.nav_category -> startActivity(Intent(applicationContext, NewCategory::class.java))
                 R.id.nav_category_view -> startActivity(Intent(applicationContext, CategorySpent::class.java))
                 R.id.nav_goals -> startActivity(Intent(applicationContext, Goals::class.java))
+                R.id.nav_rewards -> startActivity(Intent(applicationContext, RewardsActivity::class.java)) // <--- ADD THIS LINE
                 R.id.nav_logout -> {
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(applicationContext, Login::class.java))
