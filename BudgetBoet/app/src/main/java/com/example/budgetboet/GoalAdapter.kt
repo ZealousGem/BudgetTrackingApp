@@ -11,24 +11,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot // NEW IMPORT
+import com.google.firebase.database.DatabaseError // NEW IMPORT
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener // NEW IMPORT
 import java.util.Locale
 
 class GoalAdapter(
     private val goals: MutableList<Goal>,
     private val dbRef: DatabaseReference,
-    private val userPointsRef: DatabaseReference
+    private val userPointsRef: DatabaseReference // This reference is for updating user points
 ) : RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
 
     class GoalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val goalName: TextView = itemView.findViewById(R.id.goalName)
-        val goalProgressText: TextView = itemView.findViewById(R.id.goalProgressText) // NEW
+        val goalProgressText: TextView = itemView.findViewById(R.id.goalProgressText)
         val goalProgressBar: ProgressBar = itemView.findViewById(R.id.goalProgressBar)
         val deleteButton: Button = itemView.findViewById(R.id.deleteGoalButton)
         val updateButton: Button = itemView.findViewById(R.id.button3)
         val amountEditText: EditText = itemView.findViewById(R.id.editTextText)
-        val cardLayout: View = itemView // The root view is used to change background/elevation
+        val cardLayout: View = itemView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
@@ -59,7 +61,7 @@ class GoalAdapter(
             holder.amountEditText.isEnabled = false
             holder.amountEditText.setText("Goal Reached!")
         } else {
-            // Reset colors if goal is not complete (assuming a default white or drawable background)
+            // Reset colors if goal is not complete
             holder.cardLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, android.R.color.white))
             holder.goalProgressText.setTextColor(ContextCompat.getColor(holder.itemView.context, android.R.color.darker_gray))
             holder.goalName.setTextColor(Color.BLACK)
@@ -90,11 +92,15 @@ class GoalAdapter(
                     return@setOnClickListener
                 }
 
-                // Calculate the new saved amount (cap it at the target amount)
+                val wasIncomplete = goal.savedAmount < goal.targetAmount
+
                 val newSavedAmount = (goal.savedAmount + amount).coerceAtMost(goal.targetAmount)
 
-                // The whole item updates when the Firebase listener triggers,
-                // but we can still perform the update call.
+                val isNowComplete = newSavedAmount == goal.targetAmount
+
+                // Flag to check if this specific update completed the goal
+                val isGoalNewlyCompleted = wasIncomplete && isNowComplete
+
                 val update = mapOf<String, Any>(
                     "savedAmount" to newSavedAmount
                 )
@@ -102,6 +108,10 @@ class GoalAdapter(
                 dbRef.child(goal.id).updateChildren(update)
                     .addOnSuccessListener {
                         Toast.makeText(holder.itemView.context, "Goal progress updated", Toast.LENGTH_SHORT).show()
+
+                        if (isGoalNewlyCompleted) {
+                            addRewardPoints(holder, goal.name)
+                        }
                     }
                     .addOnFailureListener {
                         Toast.makeText(holder.itemView.context, "Update failed", Toast.LENGTH_SHORT).show()
@@ -116,4 +126,31 @@ class GoalAdapter(
     }
 
     override fun getItemCount(): Int = goals.size
+
+    private fun addRewardPoints(holder: GoalViewHolder, goalName: String) {
+        val rewardAmount = 500 // Points to award for completing a goal
+
+        // Use addListenerForSingleValueEvent to read the points only once
+        userPointsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Read current points, defaulting to 0 if the value does not exist
+                val currentPoints = snapshot.getValue(Int::class.java) ?: 0
+                val newPoints = currentPoints + rewardAmount
+
+                // Write the new total back to Firebase
+                userPointsRef.setValue(newPoints)
+                    .addOnSuccessListener {
+                        Toast.makeText(holder.itemView.context, "Goal '$goalName' completed! You earned $rewardAmount points!", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(holder.itemView.context, "Failed to update points: ${it.message}", Toast.LENGTH_LONG).show()
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle database error
+                Toast.makeText(holder.itemView.context, "Database error when getting points: ${error.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
 }
