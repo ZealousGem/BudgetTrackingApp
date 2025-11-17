@@ -56,7 +56,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
     // --- Variables to manage the photo file ---
     private var currentPhotoPath: String? = null
     private var imageUri: Uri? = null
-    private lateinit var imageButton: ImageButton
+    private lateinit var imageButton: Button
     private lateinit var categoryDropdown: Spinner
 
     // --- List to hold category data ---
@@ -70,7 +70,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
             // The image is saved to the 'imageUri' provided in dispatchTakePictureIntent()
             imageUri?.let {
                 // Display the image in the ImageButton
-                imageButton.setImageURI(it)
+             //   imageButton.setImageURI(it)
                 Toast.makeText(this, "Receipt photo captured.", Toast.LENGTH_SHORT).show()
             }
         } else {
