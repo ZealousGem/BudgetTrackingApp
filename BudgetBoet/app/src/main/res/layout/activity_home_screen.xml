@@ -91,14 +91,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
                                 android:backgroundTint="@color/black"
-                                android:text="Create" />
+                                android:text="Create"
+                                app:icon="@drawable/edit" />
 
                             <Button
                                 android:id="@+id/View_Entry"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/black"
-                                android:text="View" />
+                                android:text="View"
+                                app:icon="@drawable/view" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -142,14 +144,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
                                 android:backgroundTint="@color/black"
-                                android:text="Create" />
+                                android:text="Create"
+                                app:icon="@drawable/edit" />
 
                             <Button
                                 android:id="@+id/View_Category"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/black"
-                                android:text="View" />
+                                android:text="View"
+                                app:icon="@drawable/view" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -192,14 +196,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
                                 android:backgroundTint="@color/black"
-                                android:text="Create" />
+                                android:text="Create"
+                                app:icon="@drawable/edit" />
 
                             <Button
                                 android:id="@+id/View_Goals"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/black"
-                                android:text="View" />
+                                android:text="View"
+                                app:icon="@drawable/view" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -242,14 +248,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
                                 android:backgroundTint="@color/black"
-                                android:text="Category" />
+                                android:text="Category"
+                                app:icon="@drawable/category" />
 
                             <Button
                                 android:id="@+id/View_GoalGraph"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/black"
-                                android:text="Goals" />
+                                android:text="Goals"
+                                app:icon="@drawable/target" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -292,7 +300,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="1dp"
                                 android:backgroundTint="@color/black"
-                                android:text="View" />
+                                android:text="View"
+                                app:icon="@drawable/view" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

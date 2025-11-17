@@ -14,11 +14,11 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -49,28 +49,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="Category name:" />
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Category name:"
+                android:textSize="20sp" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/gray_light"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:padding="8dp">
+                android:layout_height="wrap_content"
+                app:boxStrokeErrorColor="#00FFFFFF"
+                app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/CatName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
                     android:hint="Name..." />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:paddingLeft="8dp"
-                android:text="Category type:" />
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Category type:"
+                android:textSize="20sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/gray_light"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
             <Spinner
                 android:id="@+id/CatType"
@@ -78,23 +104,38 @@
                 android:layout_height="50dp"
                 android:padding="8dp" />
 
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:paddingLeft="8dp"
-                android:text="Category description:" />
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Category description:"
+                android:textSize="20sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/gray_light"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="192dp"
-                android:padding="8dp">
+                android:padding="8dp"
+                app:boxStrokeErrorColor="#00FFFFFF"
+                app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/CatDesc"
                     android:layout_width="match_parent"
                     android:layout_height="159dp"
+                    android:fontFamily="@font/inter"
                     android:hint="Description..."
                     android:padding="8dp"
                     android:scrollHorizontally="false"
@@ -102,11 +143,15 @@
                     android:textAlignment="inherit" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            </com.google.android.material.card.MaterialCardView>
+
             <Button
                 android:id="@+id/CreateCat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create" />
+                android:backgroundTint="@color/green"
+                android:text="Create"
+                app:icon="@drawable/edit" />
 
         </LinearLayout>
 
