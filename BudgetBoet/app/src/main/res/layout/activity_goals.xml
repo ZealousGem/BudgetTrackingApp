@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foregroundTint="@color/white"
     tools:context=".Goals">
 
 
@@ -16,63 +17,59 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addGoalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:contentDescription="Add Goal"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/add"
+            app:backgroundTint="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"/>
+            app:rippleColor="@color/black"
+            app:tint="@color/black" />
 
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="78dp"
-            android:layout_height="48dp"
-            android:text="Back"
-            android:textAlignment="center"
-
-            app:layout_constraintStart_toStartOf="parent"
-            android:textAllCaps="false"
-            android:textSize="10sp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-
-            android:textStyle="italic"
-
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/inter_extrabold"
             android:text="Financial Goals"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="158dp"
-            tools:layout_editor_absoluteY="51dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:textAlignment="viewStart"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle"
-            android:layout_width="357dp"
-            android:layout_height="537dp"
-            android:layout_margin="16dp"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="@color/gray_light"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            app:layout_constraintVertical_bias="0.261" />
+            app:layout_constraintTop_toBottomOf="@id/textView">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,9 +77,9 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

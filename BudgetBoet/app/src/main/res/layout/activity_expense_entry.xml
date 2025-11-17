@@ -2,326 +2,431 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/expense_entry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/expense_entry">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="#00FFFFFF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/green"
+            android:elevation="4dp"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
 
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <LinearLayout
-            android:id="@+id/vertLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp">
-
-            <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="text"
-            android:text="@string/expense_entry"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textColor="@color/purple" />
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:id="@+id/horizLayout"
+                android:id="@+id/vertLayout"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="@color/gray_light"
+                android:orientation="vertical"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp">
 
-                <LinearLayout
-                    android:id="@+id/vertLayout2"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:fontFamily="@font/inter_extrabold"
+
+                    android:inputType="text"
+                    android:text="@string/expense_entry"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        app:boxStrokeColor="@color/purple"
-                        app:boxBackgroundColor="@color/gray_dark">
+                        app:boxBackgroundColor="#00FFFFFF"
+                        app:boxStrokeWidth="0dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txtEntryName"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="12dp"
                             android:ems="10"
+                            android:fontFamily="@font/inter"
                             android:hint="@string/entry_name"
                             android:inputType="text"
-                            android:textColor="@color/white" />
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Category"
+                            android:textSize="20sp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/gray_light"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:boxStrokeColor="@color/black"
+                                app:boxStrokeWidth="2dp">
+
+                                <Spinner
+                                    android:id="@+id/categoryDropDown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:layout_margin="12dp"
+                                    android:entries="@android:array/emailAddressTypes"
+                                    android:outlineProvider="background"
+                                    android:paddingLeft="6dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Reference Image"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="10dp"
+                                android:layout_weight="0"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                app:cardBackgroundColor="@color/gray_light"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="4dp" />
+
+                            <Button
+                                android:id="@+id/imageButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/black"
+                                android:fontFamily="@font/inter"
+                                android:text="Add Image"
+                                app:icon="@drawable/addphoto" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="2dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="#000000"
+                        app:boxStrokeWidth="0dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="12dp"
+                            android:ems="10"
+                            android:fontFamily="@font/inter"
+                            android:hint="@string/amount"
+                            android:inputType="text"
+                            android:outlineProvider="background" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/teal">
+                        app:boxStrokeColor="#000000"
+                        app:boxStrokeWidth="0dp">
 
-                        <Spinner
-                            android:id="@+id/categoryDropDown"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtDescription"
+                            android.scrollbars="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:entries="@android:array/emailAddressTypes" />
+                            android:layout_margin="12dp"
+                            android:fontFamily="@font/inter"
+                            android:hint="@string/description"
+                            android:inputType="textMultiLine"
+                            android:scrollbarSize="10dp"
+                            android:scrollHorizontally="false"
+                            android:singleLine="false"
+                            android:textAlignment="textStart" />
+
                     </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:layout_weight="0"
-                    android:contentDescription="@string/image_button"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FFFEFE"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/txtDate"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="#00FFFFFF"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAlignment="viewStart"
+                            android:textSize="20sp"
+                            tools:ignore="RtlCompat" />
+
+                        <DatePicker
+                            android:id="@+id/datePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:calendarViewShown="false"
+                            android:datePickerMode="spinner" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/txtStartTime"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:gravity="center"
+                            android:text="@string/start_time"
+                            android:textAlignment="viewStart"
+                            android:textSize="20sp"
+                            tools:ignore="RtlCompat" />
+
+                        <TimePicker
+                            android:id="@+id/startTimePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTint="@color/white"
+                            android:numbersSelectorColor="#FFFFFF"
+                            android:timePickerMode="spinner" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/gray_light"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/txtEndTime"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:gravity="center"
+                            android:text="@string/end_time"
+                            android:textAlignment="viewStart"
+                            android:textSize="20sp"
+                            tools:ignore="RtlCompat" />
+
+                        <TimePicker
+                            android:id="@+id/endTimePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTint="@color/white"
+                            android:numbersSelectorColor="#FFFFFF"
+                            android:timePickerMode="spinner" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    app:cardBackgroundColor="@color/green"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="2dp">
+
+                    <Button
+                        android:id="@+id/btnSaveEntry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+
+                        android:backgroundTint="@color/green"
+                        android:elevation="4dp"
+                        android:fontFamily="@font/inter"
+                        android:text="Save"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:icon="@drawable/diskette"
+                        app:strokeWidth="0dp" />
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:boxStrokeColor="@color/purple"
-                app:boxBackgroundColor="@color/gray_dark">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:ems="10"
-                    android:hint="@string/amount"
-                    android:inputType="text"
-                    android:textColor="@color/white" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:strokeWidth="2dp"
-                app:boxStrokeColor="@color/purple"
-                app:boxBackgroundColor="@color/gray_dark">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="top"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="none"
-                    android:ems="10"
-                    android:hint="@string/description"
-                    android:inputType="textMultiLine"
-                    android:textColor="@color/white"
-                    android:scrollbars="vertical"
-                    android:fadeScrollbars="false"
-                    android:scrollbarSize="10dp"
-                    android:scrollHorizontally="false"
-                    android:singleLine="false" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_gravity="center_horizontal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/purple"
-                app:cardBackgroundColor="@color/gray_dark">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/txtDate"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:text="@string/date"
-                        android:textAlignment="viewStart"
-                        android:textSize="20sp"
-                        android:textColor="@color/purple"
-                        tools:ignore="RtlCompat" />
-
-                    <DatePicker
-                        android:id="@+id/datePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:calendarViewShown="false"
-                        android:datePickerMode="spinner"
-                        android:backgroundTint="@color/white" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_gravity="center_horizontal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/purple"
-                app:cardBackgroundColor="@color/gray_dark">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/txtStartTime"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:text="@string/start_time"
-                        android:textAlignment="viewStart"
-                        android:textSize="20sp"
-                        android:textColor="@color/purple"
-                        tools:ignore="RtlCompat" />
-
-                    <TimePicker
-                        android:id="@+id/startTimePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:timePickerMode="spinner"
-                        android:backgroundTint="@color/white" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_gravity="center_horizontal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/purple"
-                app:cardBackgroundColor="@color/gray_dark">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/txtEndTime"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:text="@string/end_time"
-                        android:textAlignment="viewStart"
-                        android:textSize="20sp"
-                        android:textColor="@color/purple"
-                        tools:ignore="RtlCompat" />
-
-                    <TimePicker
-                        android:id="@+id/endTimePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:timePickerMode="spinner" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <Button
-                android:id="@+id/btnSaveEntry"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/create_entry"
-                android:textColor="@color/purple"
-                android:textAllCaps="true"
-                android:backgroundTint="@color/black" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true"
+        app:elevation="4dp"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

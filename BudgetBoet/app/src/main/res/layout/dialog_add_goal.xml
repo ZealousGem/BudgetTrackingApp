@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:layout_margin="12dp"
+    app:cardBackgroundColor="@color/gray_light"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp">
 
-    <!-- This EditText MUST have the id @+id/inputGoalName -->
-    <EditText
-        android:id="@+id/inputGoalName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/add_goal_hint_name"
-        android:inputType="textCapWords"
-        android:autofillHints="name" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <!-- This EditText MUST have the id @+id/inputTargetAmount -->
-    <EditText
-        android:id="@+id/inputTargetAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/add_goal_hint_target"
-        android:inputType="number"
-        android:importantForAutofill="no" />
+        <!-- This EditText MUST have the id @+id/inputGoalName -->
+        <EditText
+            android:id="@+id/inputGoalName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:fontFamily="@font/inter"
+            android:hint="@string/add_goal_hint_name"
+            android:inputType="textCapWords" />
 
-</LinearLayout>
+        <!-- This EditText MUST have the id @+id/inputTargetAmount -->
+        <EditText
+            android:id="@+id/inputTargetAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter"
+            android:hint="@string/add_goal_hint_target"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

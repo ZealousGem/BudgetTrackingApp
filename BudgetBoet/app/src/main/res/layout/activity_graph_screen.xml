@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GraphScreen">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,39 +15,51 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
 
         <TextView
-            android:text="Monthly Category Spent Graph"  android:id="@+id/GraphTitle"
+            android:id="@+id/GraphTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/inter_extrabold"
+            android:padding="12dp"
             android:paddingBottom="10dp"
+            android:text="Monthly Category Spent Graph"
+            android:textAlignment="viewStart"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <com.db.williamchart.view.HorizontalBarChartView
-            android:id="@+id/barGraph"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:chart_axis ="y"
-            app:chart_barsColor ="#0D4F85"
-            app:chart_barsRadius ="4dp"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="@color/gray_light"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/GraphTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="3dp">
+            app:layout_constraintTop_toBottomOf="@id/GraphTitle">
 
-        </com.db.williamchart.view.HorizontalBarChartView>
+            <com.db.williamchart.view.HorizontalBarChartView
+                android:id="@+id/barGraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:padding="12dp"
+                app:chart_axis="y"
+                app:chart_barsColor="@color/green"
+                app:chart_barsRadius="4dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

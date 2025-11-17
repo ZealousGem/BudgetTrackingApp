@@ -24,7 +24,7 @@
             android:background="@drawable/ic_launcher_background"
             android:contentDescription="Expense Image"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_foreground" />
+             />
 
         <!-- Texts stacked vertically -->
         <LinearLayout
@@ -37,9 +37,10 @@
                 android:id="@+id/txtItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extrabold"
                 android:text="Expense Name"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,6 +51,7 @@
                     android:id="@+id/txtItemCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
                     android:text="Category"
                     android:textSize="14sp" />
 
@@ -58,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:fontFamily="@font/inter"
                     android:text=" | "
                     android:textSize="14sp" />
 
@@ -66,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/inter"
                     android:text="Date"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -77,10 +81,11 @@
             android:id="@+id/txtItemAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:gravity="end"
             android:text="R 0.00"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:gravity="end" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

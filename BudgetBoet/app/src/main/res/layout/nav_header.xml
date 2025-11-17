@@ -11,22 +11,24 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/baseline_account_circle_24"/>
-    
-    <TextView
-        android:layout_width="match_parent"
-        android:id="@+id/Uname"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:textSize="20dp"
-        android:text="@string/username"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/Uemail"
+        android:id="@+id/Uname"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
         android:paddingTop="8dp"
-        android:textSize="16dp"
-        android:text="@string/email"/>
+        android:text="@string/username"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/Uemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:paddingTop="8dp"
+        android:text="@string/email"
+        android:textSize="16dp" />
 
     <View
         android:layout_width="match_parent"

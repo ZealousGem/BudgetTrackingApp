@@ -16,11 +16,12 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/green"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -32,7 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- FIX: All scrollable content is now wrapped in this vertical LinearLayout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,216 +43,267 @@
                 <TextView
                     android:id="@+id/user_details"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:text="User"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:capitalize="characters"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="USER"
                     android:textAlignment="center"
-                    android:layout_marginTop="16dp" />
+                    android:textColor="@color/black"
+                    android:textSize="36sp" />
 
-                <LinearLayout
-                    android:id="@+id/ExpenseEntry"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:background="@color/gray_light"
-                    android:gravity="top|center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp">
+                    android:layout_marginEnd="24dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:text="Expense Entries"
-                        android:layout_marginTop="8dp"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/ExpenseEntry"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center">
+                        android:background="@color/gray_light"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <Button
-                            android:id="@+id/Create_Entry"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/black"
-                            android:text="Create" />
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Expense Entries"
+                            android:textColor="#B3000000"
+                            android:textSize="30sp" />
 
-                        <Button
-                            android:id="@+id/View_Entry"
-                            android:backgroundTint="@color/black"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="View" />
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/Create_Entry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:backgroundTint="@color/black"
+                                android:text="Create" />
+
+                            <Button
+                                android:id="@+id/View_Entry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:text="View" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:id="@+id/CateogrySection"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:background="@color/gray_light"
-                    android:gravity="top|center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:text="Categories"
-                        android:layout_marginTop="8dp"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center">
-
-                        <Button
-                            android:id="@+id/Create_Category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/black"
-                            android:text="Create" />
-
-                        <Button
-                            android:id="@+id/View_Category"
-                            android:backgroundTint="@color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="View" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/GoalsSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:background="@color/gray_light"
-                    android:gravity="top|center_horizontal"
-                    android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginTop="16dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:text="Financial Goals"
-                        android:layout_marginTop="8dp"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/CateogrySection"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center">
+                        android:background="@color/gray_light"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <Button
-                            android:id="@+id/Create_Goals"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/black"
-                            android:text="Create" />
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Categories"
+                            android:textColor="#B3000000"
+                            android:textSize="30sp" />
 
-                        <Button
-                            android:id="@+id/View_Goals"
-                            android:backgroundTint="@color/black"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="View" />
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/Create_Category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:backgroundTint="@color/black"
+                                android:text="Create" />
+
+                            <Button
+                                android:id="@+id/View_Category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:text="View" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:id="@+id/GraphSection"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:background="@color/gray_light"
-                    android:gravity="top|center_horizontal"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginTop="16dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:text="Graphs"
-                        android:layout_marginTop="8dp"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/GoalsSection"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center">
+                        android:background="@color/gray_light"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <Button
-                            android:id="@+id/View_Graph"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/black"
-                            android:text="Category" />
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Financial Goals"
+                            android:textSize="30sp" />
 
-                        <Button
-                            android:id="@+id/View_GoalGraph"
-                            android:backgroundTint="@color/black"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Goals" />
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/Create_Goals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:backgroundTint="@color/black"
+                                android:text="Create" />
+
+                            <Button
+                                android:id="@+id/View_Goals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:text="View" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:id="@+id/RewardSection"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:background="@color/gray_light"
-                    android:gravity="top|center_horizontal"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginTop="16dp">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:text="Rewards"
-                        android:layout_marginTop="8dp"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/GraphSection"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center">
+                        android:background="@color/gray_light"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <Button
-                            android:id="@+id/View_Rewards"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="1dp"
-                            android:backgroundTint="@color/black"
-                            android:text="View" />
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Graphs"
+                            android:textSize="30sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/View_Graph"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:backgroundTint="@color/black"
+                                android:text="Category" />
+
+                            <Button
+                                android:id="@+id/View_GoalGraph"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:text="Goals" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:id="@+id/RewardSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray_light"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Rewards"
+                            android:textSize="30sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/View_Rewards"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:backgroundTint="@color/black"
+                                android:text="View" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <Button
                     android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:layout_marginTop="32dp" />
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/green"
+                    android:text="Logout" />
 
             </LinearLayout>
         </ScrollView>

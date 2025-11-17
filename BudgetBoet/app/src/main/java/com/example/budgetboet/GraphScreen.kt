@@ -2,17 +2,20 @@ package com.example.budgetboet
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.budgetboet.ui.ExpenseEntryActivity
-import com.example.budgetboet.ui.ExpenseListActivity
+import com.db.williamchart.view.HorizontalBarChartView
 import com.example.budgetboet.databinding.ActivityGraphScreenBinding
 import com.example.budgetboet.model.Category
 import com.example.budgetboet.model.Expense
+import com.example.budgetboet.ui.ExpenseEntryActivity
+import com.example.budgetboet.ui.ExpenseListActivity
 import com.example.budgetboet.utils.UserUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -192,6 +195,9 @@ class GraphScreen : AppCompatActivity() {
             barGraph.animation.duration = animationDuration
             // Animate the graph with the new, real data
             barGraph.animate(graphData)
+            val typeface = ResourcesCompat.getFont(this@GraphScreen, R.font.inter)
+            barGraph.labels.typeface = typeface
+            barGraph.spacing = 64f
         }
     }
 

@@ -36,17 +36,19 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:fontFamily="@font/inter_extrabold"
                 android:text="NEW CATEGORY"
-                android:textAlignment="center"
-                android:textSize="34sp"
+                android:textAlignment="viewStart"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
+                android:layout_margin="12dp"
                 android:text="Category name:" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -66,6 +68,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:paddingLeft="8dp"
                 android:text="Category type:" />
 
@@ -79,7 +82,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="12dp"
                 android:paddingLeft="8dp"
                 android:text="Category description:" />
 

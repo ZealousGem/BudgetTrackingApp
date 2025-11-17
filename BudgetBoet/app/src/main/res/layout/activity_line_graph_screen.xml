@@ -16,40 +16,46 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/green"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@android:color/white" />
 
         <TextView
-            android:text="Goals Progression Tracker"
             android:id="@+id/tvChartData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/inter_extrabold"
+            android:padding="12dp"
             android:paddingBottom="16dp"
+            android:text="Goals Progression Tracker"
+
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
-
-        <com.github.mikephil.charting.charts.CombinedChart
-            android:id="@+id/LineChart"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="@color/gray_light"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvChartData"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginHorizontal="2dp"
-            >
+            app:layout_constraintTop_toBottomOf="@id/tvChartData">
 
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/LineChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-
-        </com.github.mikephil.charting.charts.CombinedChart>
+        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

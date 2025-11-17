@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="4dp">
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/gray_light"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="12dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -22,6 +24,7 @@
                 android:id="@+id/rewardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extrabold"
                 android:text="Reward Name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -32,19 +35,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter"
                 android:text="A short description of the reward benefit."
                 android:textSize="14sp" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/claimButton"
-            style="@style/Widget.AppCompat.Button.Colored"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="100sp"
             android:layout_height="100sp"
             android:layout_gravity="center_vertical"
             android:layout_margin="20sp"
-            android:text="Claim 0 Points" />
+            app:cardBackgroundColor="@color/green"
+            app:cardCornerRadius="20sp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/claimButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Claim 0 Points"
+                android:textSize="12sp" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

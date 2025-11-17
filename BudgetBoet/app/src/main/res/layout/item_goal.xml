@@ -1,72 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:layout_marginBottom="8dp"
-    android:elevation="2dp">
-
-    <TextView
-        android:id="@+id/goalName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Goal Name"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/goalProgressText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\$0 / \$0"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp"
-        android:textColor="@android:color/darker_gray"/>
-
-    <ProgressBar
-        android:id="@+id/goalProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="40"
-        android:layout_marginBottom="8dp"
-        android:progressTint="#4CAF50"/>
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/gray_light"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="Add Amount Saved"
-            android:minHeight="48dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="viewStart" />
-
-        <Button
-            android:id="@+id/button3"
+        <TextView
+            android:id="@+id/goalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:minHeight="48dp"
-            android:layout_marginEnd="8dp"/>
+            android:fontFamily="@font/inter_extrabold"
+            android:text="Goal Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/deleteGoalButton"
+        <TextView
+            android:id="@+id/goalProgressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
-            android:minHeight="48dp"
-            android:backgroundTint="#F44336"/>
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter"
+            android:text="$0 / $0"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <ProgressBar
+            android:id="@+id/goalProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:max="100"
+            android:progress="40"
+            android:progressTint="#4CAF50" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/inter"
+                android:hint="Add Amount Saved"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/green"
+                android:fontFamily="@font/inter"
+                android:minHeight="48dp"
+                android:text="Update" />
+
+            <Button
+                android:id="@+id/deleteGoalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F44336"
+                android:fontFamily="@font/inter"
+                android:minHeight="48dp"
+                android:text="Delete" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

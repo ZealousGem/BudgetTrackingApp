@@ -13,11 +13,11 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/white" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="0dp"
@@ -40,11 +40,13 @@
             android:id="@+id/fabNewExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Add Expense"
-            app:layout_anchorGravity="bottom|end"
-            app:layout_anchor="@id/rvExpenses"
             android:layout_margin="16dp"
-            app:tint="@color/white"/>
+            android:contentDescription="Add Expense"
+            android:src="@drawable/add"
+            app:backgroundTint="@color/green"
+            app:layout_anchor="@id/rvExpenses"
+            app:layout_anchorGravity="bottom|end"
+            app:tint="@color/black" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
