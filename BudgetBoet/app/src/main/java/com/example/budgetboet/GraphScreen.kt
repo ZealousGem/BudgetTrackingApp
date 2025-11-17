@@ -196,7 +196,7 @@ class GraphScreen : AppCompatActivity() {
             // Animate the graph with the new, real data
             barGraph.animate(graphData)
             val typeface = ResourcesCompat.getFont(this@GraphScreen, R.font.inter)
-            barGraph.labels.typeface = typeface
+
             barGraph.spacing = 64f
         }
     }

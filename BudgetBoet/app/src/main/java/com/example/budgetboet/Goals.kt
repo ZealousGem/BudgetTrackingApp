@@ -106,9 +106,7 @@ class Goals : AppCompatActivity() {
             true
         }
 
-        findViewById<Button>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
+
     }
 
     private fun loadGoalsFromFirebase() {
