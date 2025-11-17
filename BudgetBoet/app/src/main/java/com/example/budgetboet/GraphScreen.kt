@@ -81,6 +81,8 @@ class GraphScreen : AppCompatActivity() {
                 R.id.nav_goals ->{
                     startActivity(Intent(applicationContext, Goals ::class.java))
                 }
+
+                R.id.nav_rewards -> startActivity(Intent(applicationContext, RewardsActivity::class.java))
                 R.id.nav_logout ->{
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(applicationContext, Login::class.java))

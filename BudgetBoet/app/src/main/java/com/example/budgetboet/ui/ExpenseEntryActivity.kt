@@ -26,6 +26,7 @@ import com.example.budgetboet.HomeScreen
 import com.example.budgetboet.Login
 import com.example.budgetboet.NewCategory
 import com.example.budgetboet.R
+import com.example.budgetboet.RewardsActivity
 import com.example.budgetboet.model.Category
 import com.example.budgetboet.model.Expense
 import com.example.budgetboet.utils.UserUtils
@@ -150,6 +151,8 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
                 R.id.nav_goals ->{ val intent = Intent(applicationContext, Goals ::class.java)
                     startActivity(intent)}
+
+                R.id.nav_rewards -> startActivity(Intent(applicationContext, RewardsActivity::class.java))
 
                 R.id.nav_logout ->{
                     FirebaseAuth.getInstance().signOut()

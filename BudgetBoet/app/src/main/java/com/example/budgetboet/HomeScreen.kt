@@ -185,6 +185,8 @@ class HomeScreen : AppCompatActivity() {
                R.id.nav_goals ->{ val intent = Intent(applicationContext, Goals ::class.java)
                    startActivity(intent)}
 
+               R.id.nav_rewards -> startActivity(Intent(applicationContext, RewardsActivity::class.java))
+
                R.id.nav_logout ->{
                    FirebaseAuth.getInstance().signOut()
                    val intent = Intent(applicationContext, Login::class.java)
