@@ -91,6 +91,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
                                 android:backgroundTint="@color/black"
+                                android:onClick="@string/create_entry"
                                 android:text="Create"
                                 app:icon="@drawable/edit" />
 
